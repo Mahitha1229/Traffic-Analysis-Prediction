@@ -1,0 +1,7 @@
+{
+  "total_records": 175320,
+  "locations": 5,
+  "years": 4,
+  "features": 37,
+  "size_justification": "175,320 records across 5 highway locations and 4 years \u2014 sufficient for distributed BDA with Hadoop HDFS + Spark"
+}

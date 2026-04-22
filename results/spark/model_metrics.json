@@ -1,0 +1,75 @@
+{
+  "rmse": 415.23,
+  "mae": 271.42,
+  "r2": 0.9324,
+  "model": "RandomForestRegressor",
+  "num_trees": 50,
+  "total_rows": 175320,
+  "locations": 5,
+  "feature_importances": [
+    {
+      "feature": "is_night",
+      "importance": 0.2806
+    },
+    {
+      "feature": "hour",
+      "importance": 0.1697
+    },
+    {
+      "feature": "is_peak_hour",
+      "importance": 0.169
+    },
+    {
+      "feature": "lanes",
+      "importance": 0.0978
+    },
+    {
+      "feature": "loc_idx",
+      "importance": 0.0891
+    },
+    {
+      "feature": "day_of_week",
+      "importance": 0.0816
+    },
+    {
+      "feature": "is_weekend",
+      "importance": 0.0611
+    },
+    {
+      "feature": "weather_idx",
+      "importance": 0.0362
+    },
+    {
+      "feature": "snow_1h",
+      "importance": 0.0063
+    },
+    {
+      "feature": "clouds_all",
+      "importance": 0.0036
+    },
+    {
+      "feature": "rain_1h",
+      "importance": 0.0031
+    },
+    {
+      "feature": "temp_celsius",
+      "importance": 0.0006
+    },
+    {
+      "feature": "season_idx",
+      "importance": 0.0006
+    },
+    {
+      "feature": "month",
+      "importance": 0.0004
+    },
+    {
+      "feature": "humidity",
+      "importance": 0.0001
+    },
+    {
+      "feature": "wind_speed",
+      "importance": 0.0001
+    }
+  ]
+}

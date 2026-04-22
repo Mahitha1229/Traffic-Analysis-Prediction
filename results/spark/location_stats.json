@@ -1,0 +1,52 @@
+[
+  {
+    "location_id": "I-494_MN",
+    "location_name": "I-494 Bloomington",
+    "avg_traffic": 2581.8,
+    "max_traffic": 7200,
+    "avg_speed": 46.5,
+    "avg_occupancy": 35.9,
+    "total_incidents": 539,
+    "records": 35064
+  },
+  {
+    "location_id": "I-94_MN",
+    "location_name": "I-94 Minnesota",
+    "avg_traffic": 2580.8,
+    "max_traffic": 7200,
+    "avg_speed": 46.5,
+    "avg_occupancy": 35.8,
+    "total_incidents": 499,
+    "records": 35064
+  },
+  {
+    "location_id": "I-35W_MN",
+    "location_name": "I-35W Minneapolis",
+    "avg_traffic": 1933.5,
+    "max_traffic": 5400,
+    "avg_speed": 43.0,
+    "avg_occupancy": 35.8,
+    "total_incidents": 486,
+    "records": 35064
+  },
+  {
+    "location_id": "MN-36_MN",
+    "location_name": "MN-36 Oakdale",
+    "avg_traffic": 1290.8,
+    "max_traffic": 3600,
+    "avg_speed": 39.4,
+    "avg_occupancy": 35.9,
+    "total_incidents": 500,
+    "records": 35064
+  },
+  {
+    "location_id": "US-52_MN",
+    "location_name": "US-52 Saint Paul",
+    "avg_traffic": 1289.3,
+    "max_traffic": 3600,
+    "avg_speed": 39.4,
+    "avg_occupancy": 35.8,
+    "total_incidents": 518,
+    "records": 35064
+  }
+]

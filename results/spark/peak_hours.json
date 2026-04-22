@@ -1,0 +1,44 @@
+[
+  {
+    "day_of_week": 0,
+    "hour": 16,
+    "avg_traffic": 4026.3,
+    "day_name": "Monday"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 15,
+    "avg_traffic": 4065.3,
+    "day_name": "Tuesday"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 15,
+    "avg_traffic": 4026.4,
+    "day_name": "Wednesday"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 16,
+    "avg_traffic": 4048.6,
+    "day_name": "Thursday"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 18,
+    "avg_traffic": 3958.2,
+    "day_name": "Friday"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 15,
+    "avg_traffic": 2066.0,
+    "day_name": "Saturday"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 17,
+    "avg_traffic": 2088.0,
+    "day_name": "Sunday"
+  }
+]

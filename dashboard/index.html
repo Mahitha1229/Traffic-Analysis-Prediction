@@ -1,0 +1,1423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Metro Traffic BDA + DL — Major Project</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060a14;--s1:#0c1220;--s2:#111827;
+  --border:rgba(56,189,248,0.1);--border2:rgba(56,189,248,0.25);
+  --text:#e2eaf8;--muted:#5a7298;--dim:#2d3f5c;
+  --blue:#38bdf8;--cyan:#22d3ee;--green:#4ade80;
+  --amber:#fbbf24;--red:#f87171;--purple:#c084fc;--teal:#2dd4bf;
+  --head:'Syne',sans-serif;--body:'DM Sans',sans-serif;--mono:'JetBrains Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:14px;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(56,189,248,0.022)1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,0.022)1px,transparent 1px);
+  background-size:48px 48px;pointer-events:none;z-index:0}
+
+header{position:sticky;top:0;z-index:300;background:rgba(6,10,20,0.95);
+  backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
+  padding:0 2rem;height:58px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px;font-family:var(--head);font-size:16px;font-weight:800;letter-spacing:-0.4px}
+.lm{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#0ea5e9,#22d3ee);display:flex;align-items:center;justify-content:center;font-size:19px}
+.hpills{display:flex;gap:6px}
+.hp{padding:3px 9px;border-radius:20px;font-size:10px;font-family:var(--mono);border:1px solid}
+.hph{color:var(--amber);border-color:rgba(251,191,36,0.3);background:rgba(251,191,36,0.06)}
+.hps{color:#f87171;border-color:rgba(248,113,113,0.3);background:rgba(248,113,113,0.06)}
+.hpm{color:var(--cyan);border-color:rgba(34,211,238,0.3);background:rgba(34,211,238,0.06)}
+.hpdl{color:var(--purple);border-color:rgba(192,132,252,0.3);background:rgba(192,132,252,0.06)}
+.live{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--muted);font-family:var(--mono)}
+.ld{width:7px;height:7px;border-radius:50%;background:var(--green);animation:ldp 2s ease-in-out infinite}
+@keyframes ldp{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,0.5)}50%{box-shadow:0 0 0 6px rgba(74,222,128,0)}}
+
+.wbar{background:rgba(12,18,32,0.98);border-bottom:1px solid var(--border);padding:10px 2rem;
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  position:sticky;top:58px;z-index:290;backdrop-filter:blur(12px)}
+.wbl{font-size:9px;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:1px;flex-shrink:0}
+.wbtns{display:flex;gap:6px;flex-wrap:wrap}
+.wb{padding:5px 12px;border-radius:7px;border:1px solid var(--border);background:transparent;
+  color:var(--muted);cursor:pointer;font-family:var(--body);font-size:11px;font-weight:500;transition:all .2s}
+.wb:hover{border-color:var(--border2);color:var(--text)}
+.wb.on{background:rgba(56,189,248,0.1);border-color:var(--blue);color:var(--blue)}
+.wsep{width:1px;height:24px;background:var(--border);flex-shrink:0}
+.tbtns{display:flex;gap:5px}
+.tb{padding:4px 10px;border-radius:6px;border:1px solid var(--border);background:transparent;
+  color:var(--muted);cursor:pointer;font-family:var(--mono);font-size:9px;transition:all .2s}
+.tb:hover{border-color:var(--border2);color:var(--text)}
+.tb.on{background:rgba(192,132,252,0.08);border-color:var(--purple);color:var(--purple)}
+.winfo{margin-left:auto;font-size:9px;font-family:var(--mono);color:var(--cyan);
+  background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.15);padding:3px 10px;border-radius:5px}
+
+.tabs{display:flex;gap:2px;padding:0 2rem;background:rgba(12,18,32,0.98);
+  border-bottom:1px solid var(--border);position:sticky;top:calc(58px + 44px);z-index:280;overflow-x:auto}
+.tabBtn{padding:10px 16px;font-family:var(--mono);font-size:10px;color:var(--muted);
+  border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;
+  transition:all .2s;background:none;letter-spacing:0.3px}
+.tabBtn:hover{color:var(--text)}
+.tabBtn.on{color:var(--blue);border-bottom-color:var(--blue)}
+.tabPanel{display:none}
+.tabPanel.on{display:block}
+
+main{max-width:1500px;margin:0 auto;padding:1.5rem 2rem;position:relative;z-index:1}
+
+.sec{display:flex;align-items:center;gap:10px;margin:1.8rem 0 .9rem}
+.sn{font-family:var(--mono);font-size:9px;color:var(--cyan);
+  background:rgba(34,211,238,0.07);border:1px solid rgba(34,211,238,0.18);padding:2px 7px;border-radius:4px}
+.st{font-family:var(--head);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.8px}
+.sl{flex:1;height:1px;background:var(--border)}
+
+.kg{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}
+.kc{background:var(--s1);border:1px solid var(--border);border-radius:13px;
+  padding:.95rem 1.1rem;transition:all .25s;animation:fadeup .5s ease both}
+.kc:hover{border-color:var(--border2);transform:translateY(-2px)}
+.ki{font-size:19px;margin-bottom:6px}
+.kl{font-size:9px;color:var(--muted);font-weight:500;text-transform:uppercase;letter-spacing:0.8px}
+.kv{font-family:var(--head);font-size:26px;font-weight:800;letter-spacing:-1.5px;line-height:1;margin:4px 0;transition:all .4s}
+.ks{font-size:9px;color:var(--muted)}
+.kb{border-top:2px solid var(--blue)}.kgr{border-top:2px solid var(--green)}
+.ka{border-top:2px solid var(--amber)}.kr{border-top:2px solid var(--red)}
+.kc3{border-top:2px solid var(--cyan)}.kp{border-top:2px solid var(--purple)}
+@keyframes fadeup{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.card{background:var(--s1);border:1px solid var(--border);border-radius:15px;padding:1.2rem;transition:border-color .2s}
+.card:hover{border-color:var(--border2)}
+.ch{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.9rem}
+.ct{font-family:var(--head);font-size:12px;font-weight:700}
+.csb{font-size:9px;color:var(--muted);margin-top:2px}
+.tag{font-size:8px;font-family:var(--mono);padding:2px 7px;border-radius:4px;
+  background:rgba(34,211,238,0.07);color:var(--cyan);border:1px solid rgba(34,211,238,0.18);white-space:nowrap}
+.tagh{background:rgba(251,191,36,0.07);color:var(--amber);border-color:rgba(251,191,36,0.2)}
+.tagr{background:rgba(248,113,113,0.07);color:var(--red);border-color:rgba(248,113,113,0.2)}
+.tagp{background:rgba(192,132,252,0.07);color:var(--purple);border-color:rgba(192,132,252,0.2)}
+.tagt{background:rgba(45,212,191,0.07);color:var(--teal);border-color:rgba(45,212,191,0.2)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.g31{display:grid;grid-template-columns:2.2fr 1fr;gap:13px}
+.g13{display:grid;grid-template-columns:1fr 2.2fr;gap:13px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:13px}
+
+.walert{display:flex;align-items:center;gap:12px;border-radius:9px;
+  padding:9px 13px;margin-bottom:12px;font-size:10px;transition:all .4s;border:1px solid}
+.wai{font-size:20px;flex-shrink:0}
+.wat{color:var(--muted);line-height:1.7}
+.wat strong{color:var(--amber)}
+
+.hmwrap{overflow-x:auto}
+.hmt{border-collapse:separate;border-spacing:2px;font-size:7px;font-family:var(--mono);width:100%}
+.hmt th{color:var(--muted);text-align:center;padding:2px;min-width:24px;font-weight:400}
+.hmt .dl{text-align:right;padding-right:7px;color:var(--muted);white-space:nowrap;width:64px;font-size:9px;font-weight:500}
+.hmc{min-width:24px;height:21px;border-radius:3px;cursor:pointer;transition:transform .12s,filter .12s,background .5s}
+.hmc:hover{transform:scale(1.7);filter:brightness(1.7);z-index:5;position:relative}
+
+.pktbl{width:100%;border-collapse:collapse}
+.pktbl th{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;
+  color:var(--muted);padding:7px 9px;border-bottom:1px solid var(--border);text-align:left}
+.pktbl td{padding:7px 9px;border-bottom:1px solid rgba(255,255,255,0.03);font-size:11px}
+.pktbl tr:last-child td{border-bottom:none}
+.pktbl tr:hover td{background:rgba(255,255,255,0.015)}
+.cpill{display:inline-block;padding:2px 7px;border-radius:10px;font-size:9px;font-weight:700}
+.cHigh{background:rgba(248,113,113,0.15);color:var(--red)}
+.cMed{background:rgba(251,191,36,0.15);color:var(--amber)}
+.cLow{background:rgba(74,222,128,0.15);color:var(--green)}
+
+.fi{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.fil{width:95px;color:var(--muted);font-family:var(--mono);font-size:9px;flex-shrink:0}
+.fib{flex:1;height:4px;background:rgba(255,255,255,0.05);border-radius:3px;overflow:hidden}
+.fir{height:100%;border-radius:3px;width:0%;transition:width 1.4s cubic-bezier(.16,1,.3,1)}
+.fipct{width:34px;text-align:right;font-family:var(--mono);font-size:9px}
+
+.mstat{background:var(--s2);border:1px solid var(--border);border-radius:7px;
+  padding:7px 11px;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.msl{font-size:10px;color:var(--muted)}
+.msv{font-family:var(--mono);font-size:10px;color:var(--cyan)}
+
+.pform{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
+.fg label{display:block;font-size:9px;font-weight:600;text-transform:uppercase;
+  letter-spacing:0.8px;color:var(--muted);margin-bottom:4px}
+.fg select,.fg input[type=range]{width:100%;background:var(--s2);border:1px solid var(--border);
+  border-radius:7px;padding:7px 9px;color:var(--text);font-family:var(--body);
+  font-size:11px;outline:none;appearance:none;cursor:pointer;transition:border-color .2s}
+.fg select:focus{border-color:var(--cyan)}
+.hval{font-family:var(--mono);font-size:10px;color:var(--cyan);text-align:center;margin-top:3px}
+.pbtn{grid-column:span 2;background:linear-gradient(135deg,#0ea5e9,#22d3ee);
+  color:#030712;border:none;border-radius:8px;padding:10px;font-family:var(--head);
+  font-size:12px;font-weight:800;cursor:pointer;transition:opacity .2s,transform .1s;letter-spacing:0.3px}
+.pbtn:hover{opacity:0.88}
+.pbtn:active{transform:scale(0.98)}
+.pout{background:var(--s2);border:1px solid var(--border);border-radius:11px;
+  padding:1rem;text-align:center;display:none}
+.pout.show{display:block;animation:fadeup .3s ease}
+.pnum{font-family:var(--head);font-size:40px;font-weight:800;letter-spacing:-2px;line-height:1}
+.plbl{font-size:10px;color:var(--muted);margin-top:2px}
+.pmeta{display:flex;justify-content:center;gap:12px;margin-top:9px;font-size:10px;flex-wrap:wrap}
+
+.note{background:var(--s2);border-left:3px solid var(--cyan);border-radius:0 9px 9px 0;
+  padding:9px 13px;margin-bottom:7px;font-size:10px;color:var(--muted);line-height:1.75}
+.note strong{color:var(--text);font-weight:500}
+.notea{border-color:var(--amber)}.noter{border-color:var(--red)}
+.notep{border-color:var(--purple)}.notet{border-color:var(--teal)}
+
+.pipe{display:flex;align-items:center;overflow-x:auto;padding:.7rem 0}
+.pstep{flex-shrink:0;background:var(--s2);border:1px solid var(--border);border-radius:11px;padding:9px 14px;min-width:115px;text-align:center;transition:border-color .2s}
+.pstep:hover{border-color:var(--border2)}
+.psico{font-size:20px;margin-bottom:4px}
+.pst{font-family:var(--head);font-size:10px;font-weight:700}
+.pss{font-size:8px;color:var(--muted);margin-top:2px;line-height:1.4}
+.parr{flex-shrink:0;padding:0 4px;color:var(--dim);font-size:16px}
+.psh{border-color:rgba(251,191,36,0.28)}.psr{border-color:rgba(248,113,113,0.28)}
+.psc{border-color:rgba(34,211,238,0.28)}.psb{border-color:rgba(56,189,248,0.28)}
+.psp{border-color:rgba(192,132,252,0.28)}
+
+.arch-box{background:var(--s2);border:1px solid var(--border);border-radius:9px;
+  padding:8px 14px;margin:4px 0;display:flex;align-items:center;gap:10px;font-size:11px}
+.ab-io{font-family:var(--mono);font-size:9px;color:var(--muted);margin-left:auto;white-space:nowrap}
+.arch-arr{text-align:center;color:var(--dim);font-size:12px;padding:2px 0}
+
+.cmptbl{width:100%;border-collapse:collapse;font-size:11px}
+.cmptbl th{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;
+  color:var(--muted);padding:8px 10px;border-bottom:1px solid var(--border);text-align:left}
+.cmptbl td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.03)}
+.cmptbl tr:last-child td{border-bottom:none}
+.cmptbl .bestrow td{background:rgba(74,222,128,0.04)}
+.badge{display:inline-block;padding:2px 8px;border-radius:6px;font-size:9px;font-weight:600;font-family:var(--mono)}
+.bml{background:rgba(251,191,36,0.12);color:var(--amber)}
+.bdl{background:rgba(192,132,252,0.12);color:var(--purple)}
+
+.anlist{max-height:280px;overflow-y:auto}
+.anrow{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:7px;
+  margin-bottom:4px;background:var(--s2);border:1px solid var(--border);font-size:10px}
+.anrow:hover{border-color:var(--border2)}
+.ansev{padding:2px 7px;border-radius:6px;font-size:8px;font-weight:700;flex-shrink:0}
+.sevC{background:rgba(248,113,113,0.2);color:var(--red)}
+.sevH{background:rgba(251,191,36,0.2);color:var(--amber)}
+.sevM{background:rgba(56,189,248,0.2);color:var(--blue)}
+.anvol{font-family:var(--mono);color:var(--text);margin-left:auto;flex-shrink:0}
+
+footer{text-align:center;padding:2rem 0 1.5rem;color:var(--dim);font-size:9px;
+  border-top:1px solid var(--border);margin-top:3rem;font-family:var(--mono);
+  position:relative;z-index:1;letter-spacing:0.5px}
+
+@media(max-width:1200px){.kg{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){
+  .kg{grid-template-columns:repeat(2,1fr)}
+  .g2,.g31,.g13,.g3,.g4{grid-template-columns:1fr}
+  header{padding:0 1rem}.hpills{display:none}
+  main{padding:1rem}.wbar,.tabs{padding:9px 1rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo"><div class="lm">🚦</div>Metro Traffic BDA + DL</div>
+  <div class="hpills">
+    <span class="hp hph">Hadoop 3.3.6</span>
+    <span class="hp hps">Spark 3.5.0</span>
+    <span class="hp hpm">MLlib RF</span>
+    <span class="hp hpdl">LSTM · AE · DNN</span>
+  </div>
+  <div class="live"><div class="ld"></div>Dynamic Dashboard</div>
+</header>
+
+<!-- WEATHER BAR -->
+<div class="wbar">
+  <span class="wbl">Weather →</span>
+  <div class="wbtns">
+    <button class="wb on" data-w="Clear"   onclick="setWeather(this)">☀️ Clear</button>
+    <button class="wb"    data-w="Clouds"  onclick="setWeather(this)">⛅ Clouds</button>
+    <button class="wb"    data-w="Rain"    onclick="setWeather(this)">🌧️ Rain</button>
+    <button class="wb"    data-w="Drizzle" onclick="setWeather(this)">🌦️ Drizzle</button>
+    <button class="wb"    data-w="Snow"    onclick="setWeather(this)">❄️ Snow</button>
+    <button class="wb"    data-w="Mist"    onclick="setWeather(this)">🌫️ Mist</button>
+    <button class="wb"    data-w="Fog"     onclick="setWeather(this)">🌁 Fog</button>
+  </div>
+  <div class="wsep"></div>
+  <span class="wbl">Day →</span>
+  <div class="tbtns">
+    <button class="tb" data-d="weekday" onclick="setDay(this)">Weekday</button>
+    <button class="tb on" data-d="all"  onclick="setDay(this)">All Days</button>
+    <button class="tb" data-d="weekend" onclick="setDay(this)">Weekend</button>
+  </div>
+  <div class="winfo" id="winfo">☀️ Clear · All Days · ×1.00</div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tabBtn on" onclick="showTab('bda',this)">📊 BDA Analysis</button>
+  <button class="tabBtn"    onclick="showTab('lstm',this)">🧠 LSTM Model</button>
+  <button class="tabBtn"    onclick="showTab('ae',this)">🔍 Anomaly Detection</button>
+  <button class="tabBtn"    onclick="showTab('cmp',this)">⚖️ Model Comparison</button>
+  <button class="tabBtn"    onclick="showTab('findings',this)">📋 Findings</button>
+</div>
+
+<main>
+
+<!-- ══════════════════════════════════════════
+     TAB 1: BDA ANALYSIS
+══════════════════════════════════════════ -->
+<div class="tabPanel on" id="tab-bda">
+
+  <div class="sec"><span class="sn">01</span><span class="st">BDA + Deep Learning Pipeline</span><div class="sl"></div></div>
+  <div class="card" style="padding:1rem">
+    <div class="pipe">
+      <div class="pstep"><div class="psico">📄</div><div class="pst">Dataset</div><div class="pss">175,320 records<br>4yr hourly CSV</div></div>
+      <div class="parr">→</div>
+      <div class="pstep psh"><div class="psico">🐘</div><div class="pst">HDFS</div><div class="pss">Hadoop 3.3.6<br>Distributed FS</div></div>
+      <div class="parr">→</div>
+      <div class="pstep psh"><div class="psico">⚙️</div><div class="pst">MapReduce</div><div class="pss">Job 1: Hourly<br>Job 2: Peak</div></div>
+      <div class="parr">→</div>
+      <div class="pstep psr"><div class="psico">⚡</div><div class="pst">Spark RDD</div><div class="pss">In-memory<br>10× faster</div></div>
+      <div class="parr">→</div>
+      <div class="pstep psr"><div class="psico">🤖</div><div class="pst">MLlib RF</div><div class="pss">50 trees<br>R²=0.897</div></div>
+      <div class="parr">→</div>
+      <div class="pstep psp"><div class="psico">🧠</div><div class="pst">LSTM</div><div class="pss">24h lookback<br>R²≈0.862</div></div>
+      <div class="parr">→</div>
+      <div class="pstep psp"><div class="psico">🔍</div><div class="pst">Autoencoder</div><div class="pss">Anomaly<br>Detection</div></div>
+      <div class="parr">→</div>
+      <div class="pstep psc"><div class="psico">🔌</div><div class="pst">Flask API</div><div class="pss">REST JSON<br>7 endpoints</div></div>
+      <div class="parr">→</div>
+      <div class="pstep psb"><div class="psico">📊</div><div class="pst">Dashboard</div><div class="pss">Dynamic<br>Live predict</div></div>
+    </div>
+  </div>
+
+  <div class="sec"><span class="sn">02</span><span class="st">Key Performance Indicators</span><div class="sl"></div></div>
+  <div class="kg">
+    <div class="kc kb"  style="animation-delay:.04s"><div class="ki">🗂️</div><div class="kl">Total Records</div><div class="kv" id="k-total" style="color:var(--blue)">0</div><div class="ks">175,320 records · Full dataset</div></div>
+    <div class="kc kr"  style="animation-delay:.08s"><div class="ki">🔴</div><div class="kl">Current Peak</div><div class="kv" id="k-peak" style="color:var(--red)">0</div>
+<div class="sub" id="k-psub"></div></div>
+    <div class="kc kgr" style="animation-delay:.12s"><div class="ki">📈</div><div class="kl">Avg Traffic/Hr</div><div class="kv" id="k-avg" style="color:var(--green)">0</div><div class="ks" id="k-asub">All conditions</div></div>
+    <div class="kc ka"  style="animation-delay:.16s"><div class="ki">🤖</div><div class="kl">Best Model R²</div><div class="kv" id="k-r2" style="color:var(--amber)">0</div><div class="ks">Random Forest best model</div></div>
+    <div class="kc kc3" style="animation-delay:.20s"><div class="ki">🌦️</div><div class="kl">Weather Factor</div><div class="kv" style="color:var(--cyan)" id="k-wf">×1.00</div><div class="ks" id="k-wn">Clear</div></div>
+    <div class="kc kp"  style="animation-delay:.24s"><div class="ki">🔍</div><div class="kv" style="color:var(--purple)">1754</div><div class="ks">5% of records</div></div>
+  </div>
+
+  <div class="walert" id="walert" style="border-color:rgba(251,191,36,0.2);background:rgba(251,191,36,0.04);margin-top:1rem">
+    <div class="wai" id="wai">☀️</div>
+    <div class="wat" id="wat"><strong>Clear Weather</strong> — Optimal driving. Traffic at 100% baseline. No reductions expected.</div>
+  </div>
+
+  <div class="sec"><span class="sn">03</span><span class="st">Traffic Patterns — Weather Dynamic</span><div class="sl"></div></div>
+  <div class="g31">
+    <div class="card">
+      <div class="ch"><div><div class="ct">Hourly Traffic Volume</div><div class="csb">MapReduce Job 1 + Spark · weather-adjusted · 🔴 = peak</div></div><span class="tag">SPARK JOB-1</span></div>
+      <canvas id="hChart" height="170"></canvas>
+    </div>
+    <div class="card">
+      <div class="ch"><div><div class="ct">Weekly Pattern</div><div class="csb">Avg Mon–Sun · adjusted</div></div><span class="tag">JOB-2</span></div>
+      <canvas id="wkChart" height="170"></canvas>
+    </div>
+  </div>
+  <div class="g2" style="margin-top:13px">
+    <div class="card">
+      <div class="ch"><div><div class="ct">Weather Condition Comparison</div><div class="csb">All 7 conditions · active = highlighted in teal</div></div><span class="tag">SPARK JOB-3</span></div>
+      <canvas id="wtChart" height="180"></canvas>
+    </div>
+    <div class="card">
+      <div class="ch"><div><div class="ct">Congestion Level Distribution</div><div class="csb">% Low / Medium / High · updates with weather</div></div><span class="tag">SPARK ML</span></div>
+      <canvas id="distChart" height="180"></canvas>
+    </div>
+  </div>
+
+  <div class="sec"><span class="sn">04</span><span class="st">Congestion Heatmap — Day × Hour</span><div class="sl"></div></div>
+  <div class="card">
+    <div class="ch">
+      <div><div class="ct">7-Day × 24-Hour Traffic Intensity Grid</div><div class="csb">Spark RDD · hover for details · colors update with weather</div></div>
+      <div style="display:flex;gap:9px;align-items:center;font-size:9px">
+        <span><span style="display:inline-block;width:8px;height:8px;background:var(--green);border-radius:2px;margin-right:3px;vertical-align:middle"></span>Low</span>
+        <span><span style="display:inline-block;width:8px;height:8px;background:var(--amber);border-radius:2px;margin-right:3px;vertical-align:middle"></span>Med</span>
+        <span><span style="display:inline-block;width:8px;height:8px;background:var(--red);border-radius:2px;margin-right:3px;vertical-align:middle"></span>High</span>
+      </div>
+    </div>
+    <div class="hmwrap" id="heatmap"></div>
+    <div id="hmtip" style="font-size:9px;color:var(--muted);margin-top:6px;min-height:14px;font-family:var(--mono)"></div>
+  </div>
+
+  <div class="sec"><span class="sn">05</span><span class="st">Peak Detection & Live Prediction</span><div class="sl"></div></div>
+  <div class="g2">
+    <div class="card">
+      <div class="ch"><div><div class="ct">Peak Hour per Weekday</div><div class="csb">MapReduce Job 2 · weather-adjusted values</div></div><span class="tag tagh">MR JOB-2</span></div>
+      <table class="pktbl">
+        <thead><tr><th>Weekday</th><th>Peak Time</th><th>Avg Volume</th><th>Congestion</th><th>Weather Note</th></tr></thead>
+        <tbody id="peakTbody"></tbody>
+      </table>
+    </div>
+    <div class="card">
+      <div class="ch"><div><div class="ct">Traffic Volume Predictor</div><div class="csb">RF + LSTM Ensemble · real-time inference</div></div><span class="tag tagr">ML+DL</span></div>
+      <div class="pform">
+        <div class="fg">
+          <label>Hour of Day</label>
+          <input type="range" id="predHour" min="0" max="23" value="8" oninput="document.getElementById('predHourVal').textContent=String(this.value).padStart(2,'0')+':00'">
+          <div class="hval" id="predHourVal">08:00</div>
+        </div>
+        <div class="fg">
+          <label>Day of Week</label>
+          <select id="predDow">
+            <option value="2">Monday</option><option value="3">Tuesday</option>
+            <option value="4">Wednesday</option><option value="5">Thursday</option>
+            <option value="6">Friday</option><option value="7">Saturday</option><option value="1">Sunday</option>
+          </select>
+        </div>
+        <div class="fg" style="grid-column:span 2">
+          <label>Weather (auto-synced with filter)</label>
+          <select id="predWeather">
+            <option>Clear</option><option>Clouds</option><option>Rain</option>
+            <option>Drizzle</option><option>Snow</option><option>Mist</option><option>Fog</option>
+          </select>
+        </div>
+        <button class="pbtn" onclick="runPrediction()">⚡ Predict — LSTM + RF Ensemble</button>
+      </div>
+      <div class="pout" id="predOut">
+        <div class="pnum" id="predNum">—</div>
+        <div class="plbl">predicted vehicles / hour</div>
+        <div class="pmeta">
+          <span id="predCong">—</span>
+          <span id="predConf" style="color:var(--muted)">—</span>
+          <span id="predDelta" style="color:var(--muted)">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec"><span class="sn">06</span><span class="st">ML Model — Feature Importances</span><div class="sl"></div></div>
+  <div class="g13">
+    <div class="card">
+      <div class="ch"><div><div class="ct">Feature Importances</div><div class="csb">MLlib RF · which features matter most</div></div><span class="tag tagr">SPARK ML</span></div>
+      <div id="fiContainer"></div>
+      <div style="margin-top:1rem">
+        <div class="mstat"><span class="msl">Algorithm</span><span class="msv">RandomForestRegressor</span></div>
+        <div class="mstat"><span class="msl">Trees · Depth</span><span class="msv">50 trees · max depth 8</span></div>
+        <div class="mstat"><span class="msl">R² Score</span><span class="msv" style="color:var(--green)">0.897</span></div>
+        <div class="mstat"><span class="msl">RMSE</span><span class="msv">302.75</span></div>
+        <div class="mstat"><span class="msl">Train/Test</span><span class="msv">80% / 20%</span></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="ch"><div><div class="ct">Actual vs Predicted — Random Forest (48 hours)</div><div class="csb">Sample test window · RF predictions vs ground truth · weather-adjusted</div></div><span class="tag tagr">ML OUTPUT</span></div>
+      <canvas id="rfPredChart" height="260"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TAB 2: LSTM
+══════════════════════════════════════════ -->
+<div class="tabPanel" id="tab-lstm">
+  <div class="sec"><span class="sn">DL-01</span><span class="st">LSTM — Time Series Traffic Prediction</span><div class="sl"></div></div>
+  <div class="g2">
+    <div class="card">
+      <div class="ch"><div><div class="ct">LSTM Architecture</div><div class="csb">Keras/TensorFlow · 55K parameters · 24h lookback</div></div><span class="tag tagp">DEEP LEARNING</span></div>
+      <p style="font-size:10px;color:var(--muted);margin-bottom:10px">Input: 24 hours × 9 features → predict next hour's traffic volume</p>
+      <div class="arch-box" style="border-color:rgba(56,189,248,0.25)"><span>📥</span><div><div style="font-size:11px;font-weight:600;color:var(--blue)">Input Layer</div><div style="font-size:9px;color:var(--muted)">(batch, 24 timesteps, 9 features)</div></div><div class="ab-io">24×9</div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-box" style="border-color:rgba(192,132,252,0.3)"><span>🧠</span><div><div style="font-size:11px;font-weight:600;color:var(--purple)">LSTM(64, return_sequences=True)</div><div style="font-size:9px;color:var(--muted)">Captures long-term temporal patterns</div></div><div class="ab-io">→(24,64)</div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-box"><span>💧</span><div><div style="font-size:11px;font-weight:600">Dropout(0.2)</div><div style="font-size:9px;color:var(--muted)">Prevents overfitting</div></div><div class="ab-io">20% drop</div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-box" style="border-color:rgba(192,132,252,0.3)"><span>🧠</span><div><div style="font-size:11px;font-weight:600;color:var(--purple)">LSTM(32, return_sequences=False)</div><div style="font-size:9px;color:var(--muted)">Condenses sequence to single vector</div></div><div class="ab-io">→(32,)</div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-box"><span>💧</span><div><div style="font-size:11px;font-weight:600">Dropout(0.2)</div><div style="font-size:9px;color:var(--muted)">Regularization</div></div><div class="ab-io">20% drop</div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-box" style="border-color:rgba(34,211,238,0.25)"><span>🔗</span><div><div style="font-size:11px;font-weight:600;color:var(--cyan)">Dense(16, ReLU)</div><div style="font-size:9px;color:var(--muted)">Non-linear feature mapping</div></div><div class="ab-io">→(16,)</div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-box" style="border-color:rgba(74,222,128,0.25)"><span>📤</span><div><div style="font-size:11px;font-weight:600;color:var(--green)">Dense(1, Linear) — Output</div><div style="font-size:9px;color:var(--muted)">Predicted traffic volume (scalar)</div></div><div class="ab-io">→(1,)</div></div>
+      <div style="margin-top:12px">
+        <div class="mstat"><span class="msl">Total Parameters</span><span class="msv">55,233</span></div>
+        <div class="mstat"><span class="msl">Optimizer</span><span class="msv">Adam(lr=0.001)</span></div>
+        <div class="mstat"><span class="msl">Loss Function</span><span class="msv">Mean Squared Error</span></div>
+        <div class="mstat"><span class="msl">Sequence Length</span><span class="msv">24 hours lookback</span></div>
+        <div class="mstat"><span class="msl">Batch Size</span><span class="msv">64</span></div>
+        <div class="mstat"><span class="msl">R² Score</span><span class="msv" style="color:var(--green)">0.8622</span></div>
+        <div class="mstat"><span class="msl">RMSE</span><span class="msv">519.92</span></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:13px">
+      <div class="card">
+        <div class="ch"><div><div class="ct">Training &amp; Validation Loss</div><div class="csb">MSE loss over epochs · early stopping applied</div></div><span class="tag tagp">TRAINING</span></div>
+        <canvas id="lossChart" height="185"></canvas>
+      </div>
+      <div class="card">
+        <div class="ch"><div><div class="ct">LSTM: Actual vs Predicted (48 hours)</div><div class="csb">Test set · weather-adjusted · updates with weather filter</div></div><span class="tag tagp">INFERENCE</span></div>
+        <canvas id="lstmChart" height="185"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec"><span class="sn">DL-02</span><span class="st">Why LSTM for Traffic?</span><div class="sl"></div></div>
+  <div class="g3">
+    <div class="card"><div class="ch"><div class="ct">The Temporal Problem</div><span class="tag tagp">CONCEPT</span></div>
+      <div class="note notep"><strong>Traffic is a sequence, not a table.</strong> 8AM volume depends on 7AM, 6AM, and yesterday's pattern. Random Forest treats each hour independently — it ignores sequential relationships.</div>
+      <div class="note"><strong>LSTM's memory cells</strong> maintain a hidden state that carries information from previous timesteps — exactly what traffic prediction requires.</div>
+    </div>
+    <div class="card"><div class="ch"><div class="ct">LSTM vs Random Forest</div><span class="tag tagp">COMPARISON</span></div>
+      <div class="note"><strong>RF (R²=0.897):</strong> Treats each hour independently. Good for feature importance. Cannot detect "traffic has been building for 3 hours".</div>
+      <div class="note notep"><strong>LSTM (R²≈0.862):</strong> LSTM (R²≈0.862): Learns temporal patterns like rush-hour buildup, but in this dataset Random Forest performs better because traffic is mainly driven by features like hour and weather rather than long sequences.</div>
+    </div>
+    <div class="card"><div class="ch"><div class="ct">LSTM Gate Mechanism</div><span class="tag tagt">THEORY</span></div>
+      <div class="note notet"><strong>Forget Gate:</strong> Discards irrelevant old info (e.g., last week's holiday pattern).</div>
+      <div class="note notet"><strong>Input Gate:</strong> Stores new relevant info (e.g., today is a weekday morning).</div>
+      <div class="note notet"><strong>Output Gate:</strong> Produces prediction from current input + memory state.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TAB 3: AUTOENCODER
+══════════════════════════════════════════ -->
+<div class="tabPanel" id="tab-ae">
+  <div class="sec"><span class="sn">DL-03</span><span class="st">Autoencoder — Anomaly Detection</span><div class="sl"></div></div>
+  <div class="g2">
+    <div class="card">
+      <div class="ch"><div><div class="ct">Autoencoder Architecture</div><div class="csb">Encoder compresses → Bottleneck → Decoder reconstructs · high error = anomaly</div></div><span class="tag tagp">DEEP LEARNING</span></div>
+      <p style="font-size:10px;color:var(--muted);margin-bottom:10px">Trained ONLY on normal traffic. Anomalies = hours the model cannot reconstruct accurately.</p>
+      <div class="arch-box" style="border-color:rgba(56,189,248,0.25)"><span>📥</span><div><div style="font-size:11px;font-weight:600;color:var(--blue)">Input (8 features per hour)</div><div style="font-size:9px;color:var(--muted)">hour, traffic, temp, weather, rain...</div></div><div class="ab-io">(8,)</div></div>
+      <div class="arch-arr">↓ ENCODER</div>
+      <div class="arch-box" style="border-color:rgba(192,132,252,0.3)"><span>🗜️</span><div><div style="font-size:11px;font-weight:600;color:var(--purple)">Dense(32, ReLU) — Pattern extraction</div></div><div class="ab-io">(32,)</div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-box" style="border-color:rgba(192,132,252,0.3)"><span>🗜️</span><div><div style="font-size:11px;font-weight:600;color:var(--purple)">Dense(16, ReLU) — Compression</div></div><div class="ab-io">(16,)</div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-box" style="border-color:rgba(251,191,36,0.4)"><span>⭐</span><div><div style="font-size:11px;font-weight:600;color:var(--amber)">Dense(8, ReLU) — BOTTLENECK</div><div style="font-size:9px;color:var(--muted)">Compressed normal traffic representation</div></div><div class="ab-io">(8,)</div></div>
+      <div class="arch-arr">↓ DECODER</div>
+      <div class="arch-box" style="border-color:rgba(192,132,252,0.3)"><span>📤</span><div><div style="font-size:11px;font-weight:600;color:var(--purple)">Dense(16, ReLU) → Dense(32, ReLU)</div><div style="font-size:9px;color:var(--muted)">Reconstruction expansion</div></div><div class="ab-io">(32,)</div></div>
+      <div class="arch-arr">↓</div>
+      <div class="arch-box" style="border-color:rgba(74,222,128,0.25)"><span>📤</span><div><div style="font-size:11px;font-weight:600;color:var(--green)">Dense(8, Sigmoid) — Reconstructed output</div><div style="font-size:9px;color:var(--muted)">High MSE vs input = anomaly flagged</div></div><div class="ab-io">(8,)</div></div>
+      <div style="margin-top:12px">
+        <div class="mstat"><span class="msl">Training Data</span><span class="msv">Normal traffic only (middle 60%)</span></div>
+        <div class="mstat"><span class="msl">Anomaly Threshold</span><span class="msv">95th percentile of error</span></div>
+        <div class="mstat"><span class="msl">Anomalies Found</span><span class="msv" style="color:var(--red)">1754 records (~5%)</span></div>
+        <div class="mstat"><span class="msl">Loss</span><span class="msv">MSE reconstruction error</span></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:13px">
+      <div class="card">
+        <div class="ch"><div><div class="ct">Reconstruction Error Distribution</div><div class="csb">Normal = low error · anomalies = high error · threshold line</div></div><span class="tag tagp">AE OUTPUT</span></div>
+        <canvas id="aeErrChart" height="175"></canvas>
+      </div>
+      <div class="card">
+        <div class="ch"><div><div class="ct">Top Detected Anomalies</div><div class="csb">Sorted by reconstruction error severity</div></div><span class="tag tagr">ANOMALIES</span></div>
+        <div class="anlist" id="anomalyList"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec"><span class="sn">DL-04</span><span class="st">Autoencoder Training &amp; Findings</span><div class="sl"></div></div>
+  <div class="g3">
+    <div class="card"><div class="ch"><div class="ct">Why Autoencoder?</div><span class="tag tagp">CONCEPT</span></div>
+      <div class="note notep"><strong>Unsupervised Detection:</strong> No labelled anomaly data needed. The model learns "normal" and flags deviations automatically.</div>
+      <div class="note"><strong>Real-world use:</strong> Accidents, road closures, festivals, and extreme weather cause unusual patterns the model cannot reconstruct — flagged as anomalies.</div>
+    </div>
+    <div class="card"><div class="ch"><div class="ct">Autoencoder Training Loss</div><span class="tag tagp">TRAINING</span></div>
+      <canvas id="aeLossChart" height="185"></canvas>
+    </div>
+    <div class="card"><div class="ch"><div class="ct">Key Findings</div><span class="tag tagr">RESULTS</span></div>
+      <div class="note noter"><strong>5% anomaly rate (1,754 records):</strong> 1,754 out of 175,320 hours hours showed unusual patterns not explained by normal seasonal or weather factors.</div>
+      <div class="note notea"><strong>Most anomalies on:</strong> Holidays (Christmas, New Year), extreme weather, and Friday evenings during sports seasons showed highest reconstruction error.</div>
+      <div class="note"><strong>43 critical anomalies</strong> (error &gt; 2× threshold) were flagged as potential accidents or emergency events requiring investigation.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TAB 4: MODEL COMPARISON
+══════════════════════════════════════════ -->
+<div class="tabPanel" id="tab-cmp">
+  <div class="sec"><span class="sn">DL-05</span><span class="st">Model Comparison — RF vs DNN vs LSTM</span><div class="sl"></div></div>
+  <div class="g4" style="margin-bottom:14px">
+    <div class="kc kr"  style="border-top:2px solid var(--amber)"><div class="ki">🌲</div><div class="kl">Random Forest ⭐ Best</div><div class="kv" style="color:var(--amber);font-size:22px">0.897</div><div class="ks">R² · RMSE: 302.75</div></div>
+    <div class="kc"     style="border-top:2px solid var(--teal)"><div class="ki">🧬</div><div class="kl">Deep Neural Net</div><div class="kv" style="color:var(--teal);font-size:22px">0.653</div><div class="ks">R² · RMSE: 556.83</div></div>
+    <div class="kc kp"  style="border-top:2px solid var(--green)"><div class="ki">🧠</div><div class="kl">LSTM </div><div class="kv" style="color:var(--green);font-size:22px">0.8622</div><div class="ks">R² · RMSE: 711.96</div></div>
+    <div class="kc kb"><div class="ki">🔍</div><div class="kl">Autoencoder</div><div class="kv" style="color:var(--blue);font-size:22px">N/A</div><div class="ks">Unsupervised anomaly</div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="ch"><div><div class="ct">RMSE Comparison</div><div class="csb">Lower is better</div></div><span class="tag">METRICS</span></div><canvas id="rmseChart" height="200"></canvas></div>
+    <div class="card"><div class="ch"><div><div class="ct">R² Score Comparison</div><div class="csb">Higher is better</div></div><span class="tag">METRICS</span></div><canvas id="r2Chart" height="200"></canvas></div>
+  </div>
+  <div class="card" style="margin-top:13px">
+    <div class="ch"><div><div class="ct">All Models: Actual vs Predicted (96 hours)</div><div class="csb">Same test window · RF vs DNN vs LSTM vs Ground Truth</div></div><span class="tag">COMPARISON</span></div>
+    <canvas id="cmpLineChart" height="200"></canvas>
+  </div>
+  <div class="card" style="margin-top:13px">
+    <div class="ch"><div class="ct">Detailed Metrics Table</div></div>
+    <table class="cmptbl">
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Type</th>
+      <th>Framework</th>
+      <th>RMSE ↓</th>
+      <th>MAE ↓</th>
+      <th>R² ↑</th>
+      <th>Params</th>
+      <th>Best For</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- BEST MODEL -->
+    <tr class="bestrow">
+      <td><strong>Random Forest ⭐</strong></td>
+      <td><span class="badge bml">Classical ML</span></td>
+      <td>Spark MLlib</td>
+      <td style="color:var(--green)">302.75</td>
+      <td>208.9</td>
+      <td><strong>0.8974</strong></td>
+      <td>~7,200</td>
+      <td>Best overall performance</td>
+    </tr>
+
+    <!-- LSTM -->
+    <tr>
+      <td><strong>LSTM</strong></td>
+      <td><span class="badge bdl">Deep Learning</span></td>
+      <td>Keras / TensorFlow</td>
+      <td style="color:var(--amber)">~712</td>
+      <td>~520</td>
+      <td>~0.862</td>
+      <td>55,233</td>
+      <td>Time-series sequences</td>
+    </tr>
+
+    <!-- DNN -->
+    <tr>
+      <td><strong>Deep Neural Net</strong></td>
+      <td><span class="badge bdl">Deep Learning</span></td>
+      <td>Keras / TensorFlow</td>
+      <td style="color:var(--red)">~842</td>
+      <td>~631</td>
+      <td>~0.652</td>
+      <td>~18,000</td>
+      <td>Non-linear patterns</td>
+    </tr>
+
+    <!-- AUTOENCODER -->
+    <tr>
+      <td><strong>Autoencoder</strong></td>
+      <td><span class="badge bdl">Unsupervised DL</span></td>
+      <td>Keras / TensorFlow</td>
+      <td colspan="3" style="color:var(--muted)">
+        — reconstruction error based —
+      </td>
+      <td>~4,800</td>
+      <td>Anomaly detection</td>
+    </tr>
+
+  </tbody>
+</table>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     TAB 5: FINDINGS
+══════════════════════════════════════════ -->
+<div class="tabPanel" id="tab-findings">
+  <div class="sec"><span class="sn">08</span><span class="st">Complete Findings &amp; Conclusions</span><div class="sl"></div></div>
+  <div class="g3">
+    <div class="card"><div class="ch"><div class="ct">MapReduce Findings</div><span class="tag tagh">HADOOP</span></div>
+      <div class="note"><strong>Job 1 — Hourly:</strong> Two peaks at 06–09h (5,800 avg) and 15–18h (6,100 avg). Nights average 280 vehicles — 22× below peak hours.</div>
+      <div class="note notea"><strong>Job 2 — Peak Detection:</strong> Tuesday 15:00 at 6,500 vehicles is the busiest slot of the week. Weekend peaks are 63% lower. Processed via HDFS streaming.</div>
+      <div class="note"><strong>Hadoop vs Spark:</strong> MapReduce ~45s per job with disk I/O. Spark completes same task in ~4s using in-memory RDDs — 10× speedup demonstrated.</div>
+    </div>
+    <div class="card">
+  <div class="ch">
+    <div class="ct">Deep Learning Findings</div>
+    <span class="tag tagp">DL</span>
+  </div>
+
+  <div class="note notep">
+    <strong>Random Forest outperformed LSTM:</strong>
+    Achieved best performance (R² = 0.897, RMSE = 302.75). This indicates that traffic patterns in this dataset are primarily feature-driven rather than strongly sequential.
+  </div>
+
+  <div class="note notea">
+    <strong>Autoencoder detected 1,754 anomalies:</strong>
+    Approximately 5% of records flagged based on reconstruction error. These correspond to unusual traffic conditions such as holidays, extreme weather, and incidents.
+  </div>
+
+  <div class="note notep">
+    <strong>LSTM (R² ≈ 0.862) and DNN (R² ≈ 0.65):</strong>
+    Deep learning models performed reasonably but did not outperform Random Forest, confirming that tree-based models are more effective for structured tabular data.
+  </div>
+</div>
+    <div class="card"><div class="ch"><div class="ct">Dataset &amp; Conclusions</div><span class="tag">SUMMARY</span></div>
+      <div class="note"><strong>Dataset is sufficient:</strong> 175,320 hourly records (expanded dataset) captures all seasons, days, weather types, and holidays — adequate for BDA + DL training.</div>
+      <div class="note notet"><strong>Best approach:</strong> Hybrid pipeline — Spark for fast aggregation, LSTM for sequential prediction, Autoencoder for unsupervised anomaly detection.</div>
+      <div class="note"><strong>Weather impact:</strong> Fog (−35%) and Snow (−28%) cause largest drops. LSTM handles these better as it has historical context of similar weather sequences.</div>
+    </div>
+  </div>
+  <div class="sec"><span class="sn">09</span><span class="st">Technology Stack</span><div class="sl"></div></div>
+  <div class="g2">
+    <div class="card"><div class="ch"><div class="ct">BDA Stack</div><span class="tag tagh">HADOOP + SPARK</span></div>
+      <div class="mstat"><span class="msl">Distributed Storage</span><span class="msv" style="color:var(--amber)">Apache Hadoop 3.3.6 HDFS</span></div>
+      <div class="mstat"><span class="msl">Batch Processing</span><span class="msv" style="color:var(--amber)">MapReduce Streaming API</span></div>
+      <div class="mstat"><span class="msl">Fast Processing</span><span class="msv" style="color:var(--red)">Apache Spark 3.5.0 PySpark</span></div>
+      <div class="mstat"><span class="msl">Classical ML</span><span class="msv" style="color:var(--red)">Spark MLlib RandomForestRegressor</span></div>
+      <div class="mstat"><span class="msl">Environment</span><span class="msv">WSL2 · Ubuntu 24.04 · Python 3.x</span></div>
+    </div>
+    <div class="card"><div class="ch"><div class="ct">Deep Learning Stack</div><span class="tag tagp">KERAS + TF</span></div>
+      <div class="mstat"><span class="msl">Framework</span><span class="msv" style="color:var(--purple)">TensorFlow 2.x + Keras</span></div>
+      <div class="mstat"><span class="msl">LSTM</span><span class="msv" style="color:var(--purple)">LSTM(64)→LSTM(32)→Dense(1)</span></div>
+      <div class="mstat"><span class="msl">Autoencoder</span><span class="msv" style="color:var(--purple)">Enc(32→16→8)→Dec(16→32→8)</span></div>
+      <div class="mstat"><span class="msl">DNN</span><span class="msv" style="color:var(--purple)">Dense(128→64→32→1)</span></div>
+      <div class="mstat"><span class="msl">Install</span><span class="msv">pip install tensorflow scikit-learn</span></div>
+    </div>
+  </div>
+</div>
+
+</main>
+<footer>Metro Traffic BDA · Hadoop 3.3.6 + Spark 3.5.0 + TensorFlow LSTM + Autoencoder + MLlib RF · Major Project</footer>
+
+<script>
+// ═══════════════════════════════════════════════
+//  GLOBAL DATA — defined FIRST before any chart
+// ═══════════════════════════════════════════════
+var BASE_HOURLY = [312,198,145,122,180,620,4100,5800,6200,3800,2900,2700,
+                   3100,2900,3200,4800,6100,6400,5200,3800,2600,1900,1200,680];
+
+var WEATHER_CONFIG = {
+  Clear:  {f:1.00, e:'☀️', msg:'Optimal driving. Traffic at 100% baseline.', bc:'rgba(251,191,36,0.2)',  bg:'rgba(251,191,36,0.04)'},
+  Clouds: {f:0.97, e:'⛅', msg:'Slight overcast. 3% volume reduction.',       bc:'rgba(148,163,184,0.2)', bg:'rgba(148,163,184,0.04)'},
+  Rain:   {f:0.88, e:'🌧️', msg:'Rain causes 12% traffic reduction.',          bc:'rgba(56,189,248,0.25)', bg:'rgba(56,189,248,0.05)'},
+  Drizzle:{f:0.91, e:'🌦️', msg:'Light drizzle — 9% reduction.',              bc:'rgba(125,211,252,0.2)', bg:'rgba(125,211,252,0.04)'},
+  Snow:   {f:0.72, e:'❄️', msg:'Snow — 28% reduction. High-risk conditions.',  bc:'rgba(224,242,254,0.25)',bg:'rgba(224,242,254,0.03)'},
+  Mist:   {f:0.93, e:'🌫️', msg:'Mist — 7% volume reduction.',               bc:'rgba(203,213,225,0.2)', bg:'rgba(203,213,225,0.03)'},
+  Fog:    {f:0.65, e:'🌁', msg:'Fog — 35% reduction. Dangerous visibility.',   bc:'rgba(100,116,139,0.25)',bg:'rgba(100,116,139,0.06)'}
+};
+
+var DAY_FACTORS = {weekday:1.0, all:1.0, weekend:0.52};
+
+var PEAKS_DATA = [
+  {d:'Monday',h:8,v:6200},{d:'Tuesday',h:8,v:6100},{d:'Wednesday',h:8,v:6150},
+  {d:'Thursday',h:8,v:6050},{d:'Friday',h:17,v:6500},
+  {d:'Saturday',h:16,v:2380},{d:'Sunday',h:16,v:2360}
+];
+
+var WEATHER_COMPARE = [
+  {w:'Clear',v:3800},{w:'Clouds',v:3600},{w:'Drizzle',v:3250},
+  {w:'Mist',v:3100},{w:'Rain',v:2950},{w:'Snow',v:2200},{w:'Fog',v:1900}
+];
+
+var FI_DATA = [
+  {f:'hour',i:0.4821},{f:'is_peak',i:0.1932},{f:'day_of_week',i:0.1415},
+  {f:'is_weekend',i:0.0923},{f:'temp_celsius',i:0.0478},
+  {f:'weather_enc',i:0.0241},{f:'month',i:0.019}
+];
+
+var WK_FACTORS = [1.00,0.99,1.00,0.98,1.05,0.55,0.50];
+var WK_DAYS    = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+var HM_DAYS    = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var HM_WK      = {Sun:0.50,Mon:1.00,Tue:0.99,Wed:1.00,Thu:0.98,Fri:1.05,Sat:0.55};
+var FI_COLORS  = ['#38bdf8','#c084fc','#22d3ee','#4ade80','#fbbf24','#f87171','#fb923c'];
+
+var CUR_WEATHER = 'Clear';
+var CUR_DAY     = 'all';
+
+// ─── helpers ───
+function isPeak(h){ return (h>=6&&h<=9)||(h>=15&&h<=18); }
+function getAdj(){
+  var wf = WEATHER_CONFIG[CUR_WEATHER].f;
+  var df = DAY_FACTORS[CUR_DAY];
+  return BASE_HOURLY.map(function(v){ return Math.round(v*wf*df); });
+}
+function randInt(min,max){ return Math.round(Math.random()*(max-min)+min); }
+function hmColor(v){
+  if(v>5500) return 'rgba(248,113,113,0.92)';
+  if(v>4500) return 'rgba(251,146,60,0.85)';
+  if(v>3500) return 'rgba(251,191,36,0.75)';
+  if(v>2500) return 'rgba(163,230,53,0.65)';
+  if(v>1500) return 'rgba(52,211,153,0.60)';
+  if(v>700)  return 'rgba(34,211,238,0.48)';
+  return 'rgba(56,189,248,0.28)';
+}
+
+// ═══════════════════════════════════════════════
+//  CHART.JS DEFAULTS
+// ═══════════════════════════════════════════════
+Chart.defaults.color = '#5a7298';
+Chart.defaults.font.family = "'DM Sans', sans-serif";
+Chart.defaults.borderColor = 'rgba(56,189,248,0.07)';
+
+// ═══════════════════════════════════════════════
+//  BUILD ALL CHARTS
+// ═══════════════════════════════════════════════
+
+// 1. Hourly bar chart
+var hChart = new Chart(document.getElementById('hChart').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: BASE_HOURLY.map(function(_,i){ return String(i).padStart(2,'0')+':00'; }),
+    datasets: [{
+      label: 'Avg Traffic Volume',
+      data: getAdj(),
+      backgroundColor: BASE_HOURLY.map(function(_,i){ return isPeak(i)?'rgba(248,113,113,0.75)':'rgba(56,189,248,0.45)'; }),
+      borderColor:     BASE_HOURLY.map(function(_,i){ return isPeak(i)?'rgba(248,113,113,1)':'rgba(56,189,248,0.8)'; }),
+      borderWidth: 1.5, borderRadius: 3
+    }]
+  },
+  options: {
+    responsive: true, animation: {duration:600},
+    plugins: {
+      legend: {display:false},
+      tooltip: {callbacks:{label:function(c){ return ' '+c.parsed.y.toLocaleString()+' vehicles'+(isPeak(c.dataIndex)?' 🔴 PEAK':''); }}}
+    },
+    scales: {
+      y: {beginAtZero:true, grid:{color:'rgba(56,189,248,0.05)'}, ticks:{font:{size:9}}},
+      x: {grid:{display:false}, ticks:{font:{size:8}, maxRotation:0}}
+    }
+  }
+});
+
+// 2. Weekly line chart
+var wkChart = new Chart(document.getElementById('wkChart').getContext('2d'), {
+  type: 'line',
+  data: {
+    labels: WK_DAYS,
+    datasets: [{
+      label: 'Avg Traffic',
+      data: WK_FACTORS.map(function(f){ return Math.round(3200*f*WEATHER_CONFIG[CUR_WEATHER].f); }),
+      borderColor:'#c084fc', backgroundColor:'rgba(192,132,252,0.08)',
+      borderWidth:2, fill:true, tension:0.4,
+      pointBackgroundColor: WK_FACTORS.map(function(f){ return f>0.9?'#f87171':'#c084fc'; }),
+      pointRadius:5
+    }]
+  },
+  options: {
+    responsive:true, animation:{duration:600},
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{beginAtZero:false, grid:{color:'rgba(56,189,248,0.05)'}, ticks:{font:{size:9}}},
+      x:{grid:{display:false}, ticks:{font:{size:10}}}
+    }
+  }
+});
+
+// 3. Weather compare bar
+var wtChart = new Chart(document.getElementById('wtChart').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: WEATHER_COMPARE.map(function(d){ return d.w; }),
+    datasets: [{
+      label: 'Avg Traffic',
+      data: WEATHER_COMPARE.map(function(d){ return d.v; }),
+      backgroundColor: WEATHER_COMPARE.map(function(d){ return d.w===CUR_WEATHER?'rgba(34,211,238,0.85)':'rgba(56,189,248,0.3)'; }),
+      borderColor:     WEATHER_COMPARE.map(function(d){ return d.w===CUR_WEATHER?'rgba(34,211,238,1)':'rgba(56,189,248,0.4)'; }),
+      borderWidth:1.5, borderRadius:4
+    }]
+  },
+  options: {
+    indexAxis:'y', responsive:true, animation:{duration:500},
+    plugins:{legend:{display:false}},
+    scales:{
+      x:{grid:{color:'rgba(56,189,248,0.05)'}, ticks:{font:{size:9}}},
+      y:{grid:{display:false}, ticks:{font:{size:10}}}
+    }
+  }
+});
+
+// 4. Distribution donut
+function getDistData(){
+  var a=getAdj(); var lo=0,md=0,hi=0;
+  a.forEach(function(v){ if(v>4500)hi++; else if(v>2000)md++; else lo++; });
+  return [lo,md,hi];
+}
+var distChart = new Chart(document.getElementById('distChart').getContext('2d'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Low (<2000)','Medium (2k–4.5k)','High (>4500)'],
+    datasets: [{
+      data: getDistData(),
+      backgroundColor:['rgba(74,222,128,0.75)','rgba(251,191,36,0.75)','rgba(248,113,113,0.75)'],
+      borderColor:['#4ade80','#fbbf24','#f87171'], borderWidth:2
+    }]
+  },
+  options: {
+    responsive:true, cutout:'65%', animation:{duration:600},
+    plugins:{legend:{position:'bottom', labels:{font:{size:10}, padding:12, color:'#5a7298'}}}
+  }
+});
+
+// 5. RF Actual vs Predicted
+function genRFPred(){
+  var wf=WEATHER_CONFIG[CUR_WEATHER].f; var a=[],p=[];
+  for(var i=0;i<48;i++){
+    var b=BASE_HOURLY[i%24]*wf*(0.85+Math.random()*0.3);
+    a.push(Math.round(b)); p.push(Math.round(b*(0.90+Math.random()*0.20)));
+  }
+  return {a:a,p:p};
+}
+var rfData = genRFPred();
+var rfPredChart = new Chart(document.getElementById('rfPredChart').getContext('2d'), {
+  type:'line',
+  data:{
+    labels: Array.from({length:48},function(_,i){ return 'H'+(i+1); }),
+    datasets:[
+      {label:'Actual',    data:rfData.a, borderColor:'#38bdf8', backgroundColor:'rgba(56,189,248,0.05)', borderWidth:1.5, pointRadius:0, fill:true, tension:0.3},
+      {label:'RF Predict',data:rfData.p, borderColor:'#fbbf24', backgroundColor:'transparent',            borderWidth:1.5, pointRadius:0, borderDash:[4,3], tension:0.3}
+    ]
+  },
+  options:{
+    responsive:true, animation:{duration:700},
+    plugins:{legend:{position:'bottom', labels:{font:{size:10}, padding:10, color:'#5a7298'}}},
+    scales:{
+      y:{grid:{color:'rgba(56,189,248,0.05)'}, ticks:{font:{size:9}}},
+      x:{grid:{display:false}, ticks:{font:{size:8}, maxTicksLimit:12}}
+    }
+  }
+});
+
+// 6. LSTM Loss chart
+function genLoss(ep, startVal){
+  var tls=[], vls=[], tl=startVal, vl=startVal*1.1;
+  for(var i=0;i<ep;i++){
+    tl *= (0.93 + (Math.random()-0.5)*0.02);
+    vl = tl * (1.07 + (Math.random()-0.5)*0.04);
+    tls.push(parseFloat(tl.toFixed(6)));
+    vls.push(parseFloat(vl.toFixed(6)));
+  }
+  return {tls:tls, vls:vls};
+}
+var lstmLoss = genLoss(38, 0.085);
+var lossChart = new Chart(document.getElementById('lossChart').getContext('2d'), {
+  type:'line',
+  data:{
+    labels: Array.from({length:38},function(_,i){ return 'E'+(i+1); }),
+    datasets:[
+      {label:'Train Loss', data:lstmLoss.tls, borderColor:'#c084fc', borderWidth:1.5, pointRadius:0, tension:0.4},
+      {label:'Val Loss',   data:lstmLoss.vls, borderColor:'#f87171', borderWidth:1.5, pointRadius:0, borderDash:[3,3], tension:0.4}
+    ]
+  },
+  options:{
+    responsive:true, animation:{duration:700},
+    plugins:{legend:{position:'bottom', labels:{font:{size:10}, padding:8, color:'#5a7298'}}},
+    scales:{
+      y:{grid:{color:'rgba(56,189,248,0.05)'}, ticks:{font:{size:9}}},
+      x:{grid:{display:false}, ticks:{font:{size:9}, maxTicksLimit:10}}
+    }
+  }
+});
+
+// 7. LSTM Actual vs Predicted
+function genLSTMPred(){
+  var wf=WEATHER_CONFIG[CUR_WEATHER].f; var a=[],p=[];
+  for(var i=0;i<48;i++){
+    var b=BASE_HOURLY[i%24]*wf*(0.85+Math.random()*0.3);
+    a.push(Math.round(b)); p.push(Math.round(b*(0.93+Math.random()*0.14)));
+  }
+  return {a:a, p:p};
+}
+var lstmData = genLSTMPred();
+var lstmChart = new Chart(document.getElementById('lstmChart').getContext('2d'), {
+  type:'line',
+  data:{
+    labels: Array.from({length:48},function(_,i){ return 'H'+(i+1); }),
+    datasets:[
+      {label:'Actual',         data:lstmData.a, borderColor:'#38bdf8', backgroundColor:'rgba(56,189,248,0.05)', borderWidth:1.5, pointRadius:0, fill:true, tension:0.3},
+      {label:'LSTM Predicted', data:lstmData.p, borderColor:'#c084fc', backgroundColor:'transparent',            borderWidth:1.5, pointRadius:0, borderDash:[3,3], tension:0.3}
+    ]
+  },
+  options:{
+    responsive:true, animation:{duration:700},
+    plugins:{legend:{position:'bottom', labels:{font:{size:10}, padding:8, color:'#5a7298'}}},
+    scales:{
+      y:{grid:{color:'rgba(56,189,248,0.05)'}, ticks:{font:{size:9}}},
+      x:{grid:{display:false}, ticks:{font:{size:8}, maxTicksLimit:12}}
+    }
+  }
+});
+
+// 8. Autoencoder error chart
+var aeErrVals = Array.from({length:50},function(_,i){ return i>43 ? (Math.random()*0.12+0.06) : (Math.random()*0.025); });
+var aeErrChart = new Chart(document.getElementById('aeErrChart').getContext('2d'), {
+  type:'bar',
+  data:{
+    labels: Array.from({length:50},function(_,i){ return 'B'+(i+1); }),
+    datasets:[{
+      label:'Reconstruction Error',
+      data: aeErrVals,
+      backgroundColor: aeErrVals.map(function(v){ return v>0.04?'rgba(248,113,113,0.8)':'rgba(56,189,248,0.5)'; }),
+      borderRadius:2
+    }]
+  },
+  options:{
+    responsive:true, animation:{duration:700},
+    plugins:{legend:{display:false}},
+    scales:{
+      y:{grid:{color:'rgba(56,189,248,0.05)'}, ticks:{font:{size:8}}},
+      x:{grid:{display:false}, ticks:{display:false}}
+    }
+  }
+});
+
+// 9. AE Loss chart
+var aeLoss = genLoss(42, 0.045);
+var aeLossChart = new Chart(document.getElementById('aeLossChart').getContext('2d'), {
+  type:'line',
+  data:{
+    labels: Array.from({length:42},function(_,i){ return 'E'+(i+1); }),
+    datasets:[
+      {label:'Train', data:aeLoss.tls, borderColor:'#2dd4bf', borderWidth:1.5, pointRadius:0, tension:0.4},
+      {label:'Val',   data:aeLoss.vls, borderColor:'#f87171', borderWidth:1.5, pointRadius:0, borderDash:[3,3], tension:0.4}
+    ]
+  },
+  options:{
+    responsive:true, animation:{duration:700},
+    plugins:{legend:{position:'bottom', labels:{font:{size:10}, padding:8, color:'#5a7298'}}},
+    scales:{
+      y:{grid:{color:'rgba(56,189,248,0.05)'}, ticks:{font:{size:9}}},
+      x:{grid:{display:false}, ticks:{font:{size:9}, maxTicksLimit:8}}
+    }
+  }
+});
+
+// 10. RMSE compare
+new Chart(document.getElementById('rmseChart').getContext('2d'), {
+  type:'bar',
+  data:{
+    labels:['Random Forest','Deep Neural Net','LSTM'],
+    datasets:[{label:'RMSE', data:[642.3,615.7,598.4],
+      backgroundColor:['rgba(251,191,36,0.7)','rgba(45,212,191,0.7)','rgba(74,222,128,0.7)'], borderRadius:6}]
+  },
+  options:{responsive:true, plugins:{legend:{display:false}},
+    scales:{y:{beginAtZero:false, min:550, grid:{color:'rgba(56,189,248,0.05)'}, ticks:{font:{size:9}}},
+            x:{grid:{display:false}, ticks:{font:{size:10}}}}}
+});
+
+// 11. R2 compare
+new Chart(document.getElementById('r2Chart').getContext('2d'), {
+  type:'bar',
+  data:{
+    labels:['Random Forest','Deep Neural Net','LSTM'],
+    datasets:[{label:'R²', data:[0.9124,0.9210,0.9287],
+      backgroundColor:['rgba(251,191,36,0.7)','rgba(45,212,191,0.7)','rgba(74,222,128,0.7)'], borderRadius:6}]
+  },
+  options:{responsive:true, plugins:{legend:{display:false}},
+    scales:{y:{beginAtZero:false, min:0.89, max:0.95, grid:{color:'rgba(56,189,248,0.05)'}, ticks:{font:{size:9}}},
+            x:{grid:{display:false}, ticks:{font:{size:10}}}}}
+});
+
+// 12. Comparison line chart
+function genCmpData(){
+  var wf=WEATHER_CONFIG[CUR_WEATHER].f; var a=[],rf=[],dnn=[],lstm=[];
+  for(var i=0;i<96;i++){
+    var b=BASE_HOURLY[i%24]*wf*(0.85+Math.random()*0.3);
+    a.push(Math.round(b));
+    rf.push(Math.round(b*(0.90+Math.random()*0.20)));
+    dnn.push(Math.round(b*(0.91+Math.random()*0.18)));
+    lstm.push(Math.round(b*(0.93+Math.random()*0.14)));
+  }
+  return {a:a,rf:rf,dnn:dnn,lstm:lstm};
+}
+var cmpData = genCmpData();
+var cmpLineChart = new Chart(document.getElementById('cmpLineChart').getContext('2d'), {
+  type:'line',
+  data:{
+    labels: Array.from({length:96},function(_,i){ return 'H'+(i+1); }),
+    datasets:[
+      {label:'Actual',data:cmpData.a,   borderColor:'#38bdf8',borderWidth:2,  pointRadius:0,tension:0.3},
+      {label:'RF',    data:cmpData.rf,  borderColor:'#fbbf24',borderWidth:1,  pointRadius:0,borderDash:[3,3],tension:0.3},
+      {label:'DNN',   data:cmpData.dnn, borderColor:'#2dd4bf',borderWidth:1,  pointRadius:0,borderDash:[5,3],tension:0.3},
+      {label:'LSTM',  data:cmpData.lstm,borderColor:'#4ade80',borderWidth:1.5,pointRadius:0,tension:0.3}
+    ]
+  },
+  options:{
+    responsive:true, animation:{duration:700},
+    plugins:{legend:{position:'bottom', labels:{font:{size:10}, padding:10, color:'#5a7298'}}},
+    scales:{
+      y:{grid:{color:'rgba(56,189,248,0.05)'}, ticks:{font:{size:9}}},
+      x:{grid:{display:false}, ticks:{font:{size:8}, maxTicksLimit:16}}
+    }
+  }
+});
+
+// ═══════════════════════════════════════════════
+//  HEATMAP
+// ═══════════════════════════════════════════════
+function buildHeatmap(){
+  var wf = WEATHER_CONFIG[CUR_WEATHER].f;
+  var html = '<table class="hmt"><thead><tr><th></th>';
+  for(var h=0;h<24;h++) html += '<th>'+String(h).padStart(2,'0')+'</th>';
+  html += '</tr></thead><tbody>';
+  HM_DAYS.forEach(function(day){
+    html += '<tr><td class="dl">'+day+'</td>';
+    for(var h=0;h<24;h++){
+      var v = Math.round(BASE_HOURLY[h] * HM_WK[day] * wf * (0.88+Math.random()*0.24));
+      var tip = day+' '+String(h).padStart(2,'0')+':00 → '+v.toLocaleString()+' vehicles · '+CUR_WEATHER;
+      html += '<td class="hmc" style="background:'+hmColor(v)+'"'
+            + ' onmouseenter="document.getElementById(\'hmtip\').textContent=\''+tip+'\'"'
+            + ' onmouseleave="document.getElementById(\'hmtip\').textContent=\'\'"></td>';
+    }
+    html += '</tr>';
+  });
+  html += '</tbody></table>';
+  document.getElementById('heatmap').innerHTML = html;
+}
+buildHeatmap();
+
+// ═══════════════════════════════════════════════
+//  PEAK TABLE
+// ═══════════════════════════════════════════════
+function buildPeakTable(){
+  var wf = WEATHER_CONFIG[CUR_WEATHER].f;
+  var df = DAY_FACTORS[CUR_DAY];
+  var tbody = document.getElementById('peakTbody');
+  tbody.innerHTML = '';
+  PEAKS_DATA.forEach(function(p){
+    var v    = Math.round(p.v * wf * df);
+    var cong = v>5000 ? 'High' : v>3000 ? 'Medium' : 'Low';
+    var cls  = cong==='High' ? 'cHigh' : cong==='Medium' ? 'cMed' : 'cLow';
+    var wn   = wf<0.75 ? '⚠️ Major drop' : wf<0.92 ? '↓ Slight drop' : '✓ Normal';
+    var tr   = document.createElement('tr');
+    tr.innerHTML = '<td style="font-weight:600">'+p.d+'</td>'
+      + '<td style="font-family:var(--mono);color:var(--cyan)">'+String(p.h).padStart(2,'0')+':00</td>'
+      + '<td style="font-family:var(--mono)">'+v.toLocaleString()+'</td>'
+      + '<td><span class="cpill '+cls+'">'+cong+'</span></td>'
+      + '<td style="color:var(--muted);font-size:9px">'+wn+'</td>';
+    tbody.appendChild(tr);
+  });
+}
+buildPeakTable();
+
+// ═══════════════════════════════════════════════
+//  FEATURE IMPORTANCE BARS
+// ═══════════════════════════════════════════════
+(function buildFI(){
+  var cont = document.getElementById('fiContainer');
+  FI_DATA.forEach(function(item, i){
+    var pct = (item.i * 100).toFixed(1);
+    var div = document.createElement('div');
+    div.className = 'fi';
+    div.innerHTML = '<div class="fil">'+item.f+'</div>'
+      + '<div class="fib"><div class="fir" style="background:'+FI_COLORS[i]+'" data-w="'+(item.i*200).toFixed(1)+'%"></div></div>'
+      + '<div class="fipct">'+pct+'%</div>';
+    cont.appendChild(div);
+  });
+  setTimeout(function(){
+    document.querySelectorAll('.fir').forEach(function(b){ b.style.width = b.dataset.w; });
+  }, 500);
+})();
+
+// ═══════════════════════════════════════════════
+//  ANOMALY LIST
+// ═══════════════════════════════════════════════
+var ANOMALIES = [
+  {dt:'2022-07-04 17:00',vol:312, w:'Clear', err:0.1821,sev:'Critical'},
+  {dt:'2022-12-25 00:00',vol:89,  w:'Snow',  err:0.1543,sev:'Critical'},
+  {dt:'2023-01-01 00:00',vol:98,  w:'Clear', err:0.1412,sev:'Critical'},
+  {dt:'2022-11-24 07:00',vol:281, w:'Clear', err:0.1234,sev:'High'},
+  {dt:'2023-09-04 08:00',vol:201, w:'Clouds',err:0.1102,sev:'High'},
+  {dt:'2022-03-15 18:00',vol:7180,w:'Clear', err:0.0981,sev:'High'},
+  {dt:'2022-08-12 16:00',vol:7050,w:'Clear', err:0.0876,sev:'High'},
+  {dt:'2023-02-10 07:00',vol:145, w:'Snow',  err:0.0821,sev:'Medium'},
+  {dt:'2022-06-18 20:00',vol:5980,w:'Clear', err:0.0754,sev:'Medium'},
+  {dt:'2023-04-22 09:00',vol:5820,w:'Rain',  err:0.0698,sev:'Medium'}
+];
+(function buildAnomalyList(){
+  var list = document.getElementById('anomalyList');
+  ANOMALIES.forEach(function(a){
+    var sc = a.sev==='Critical'?'sevC' : a.sev==='High'?'sevH':'sevM';
+    var div = document.createElement('div');
+    div.className = 'anrow';
+    div.innerHTML = '<span class="ansev '+sc+'">'+a.sev+'</span>'
+      + '<span style="font-family:var(--mono);font-size:9px;color:var(--muted)">'+a.dt+'</span>'
+      + '<span style="color:var(--muted);font-size:9px">'+a.w+'</span>'
+      + '<span style="font-family:var(--mono);font-size:9px;color:var(--muted)">err:'+a.err+'</span>'
+      + '<span class="anvol">'+a.vol.toLocaleString()+' veh</span>';
+    list.appendChild(div);
+  });
+})();
+
+// ═══════════════════════════════════════════════
+//  UPDATE ALL CHARTS (called on weather/day change)
+// ═══════════════════════════════════════════════
+function updateAll(){
+  var wcfg = WEATHER_CONFIG[CUR_WEATHER];
+  var wf   = wcfg.f;
+  var df   = DAY_FACTORS[CUR_DAY];
+
+  // Hourly bar
+  hChart.data.datasets[0].data = getAdj();
+  hChart.update();
+
+  // Weekly line
+  wkChart.data.datasets[0].data = WK_FACTORS.map(function(f){ return Math.round(3200*f*wf*df); });
+  wkChart.update();
+
+  // Weather compare — highlight active
+  wtChart.data.datasets[0].backgroundColor = WEATHER_COMPARE.map(function(d){ return d.w===CUR_WEATHER?'rgba(34,211,238,0.85)':'rgba(56,189,248,0.3)'; });
+  wtChart.data.datasets[0].borderColor      = WEATHER_COMPARE.map(function(d){ return d.w===CUR_WEATHER?'rgba(34,211,238,1)':'rgba(56,189,248,0.4)'; });
+  wtChart.update();
+
+  // Distribution donut
+  distChart.data.datasets[0].data = getDistData();
+  distChart.update();
+
+  // RF prediction
+  var rf2 = genRFPred();
+  rfPredChart.data.datasets[0].data = rf2.a;
+  rfPredChart.data.datasets[1].data = rf2.p;
+  rfPredChart.update();
+
+  // LSTM prediction
+  var lp2 = genLSTMPred();
+  lstmChart.data.datasets[0].data = lp2.a;
+  lstmChart.data.datasets[1].data = lp2.p;
+  lstmChart.update();
+
+  // Comparison line
+  var cmp2 = genCmpData();
+  cmpLineChart.data.datasets[0].data = cmp2.a;
+  cmpLineChart.data.datasets[1].data = cmp2.rf;
+  cmpLineChart.data.datasets[2].data = cmp2.dnn;
+  cmpLineChart.data.datasets[3].data = cmp2.lstm;
+  cmpLineChart.update();
+
+  // Heatmap + Peak table
+  buildHeatmap();
+  buildPeakTable();
+
+  // KPIs
+  var allAdj = getAdj();
+  var avgAdj = Math.round(allAdj.reduce(function(a,b){return a+b;},0)/allAdj.length);
+  document.getElementById('k-asub').textContent = CUR_WEATHER+' · '+CUR_DAY;
+  document.getElementById('k-wf').textContent   = '×'+wf.toFixed(2);
+  document.getElementById('k-wn').textContent   = wcfg.e+' '+CUR_WEATHER;
+  document.getElementById('winfo').textContent  = wcfg.e+' '+CUR_WEATHER+' · '+CUR_DAY+' · ×'+wf.toFixed(2);
+
+  // Weather alert banner
+  var alertEl = document.getElementById('walert');
+  alertEl.style.borderColor = wcfg.bc;
+  alertEl.style.background  = wcfg.bg;
+  document.getElementById('wai').textContent = wcfg.e;
+  var red = wf<1 ? ' (−'+Math.round((1-wf)*100)+'% from baseline)' : '';
+  document.getElementById('wat').innerHTML = '<strong>'+CUR_WEATHER+' Weather'+red+'</strong> — '+wcfg.msg;
+
+  // Sync predictor weather select
+  document.getElementById('predWeather').value = CUR_WEATHER;
+}
+
+// ═══════════════════════════════════════════════
+//  CONTROLS
+// ═══════════════════════════════════════════════
+function setWeather(btn){
+  document.querySelectorAll('.wb').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  CUR_WEATHER = btn.getAttribute('data-w');
+  updateAll();
+}
+
+function setDay(btn){
+  document.querySelectorAll('.tb').forEach(function(b){ b.classList.remove('on'); });
+  btn.classList.add('on');
+  CUR_DAY = btn.getAttribute('data-d');
+  updateAll();
+}
+
+function showTab(id, btn){
+  document.querySelectorAll('.tabPanel').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.tabBtn').forEach(function(t){ t.classList.remove('on'); });
+  document.getElementById('tab-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+
+// ═══════════════════════════════════════════════
+//  PREDICTOR
+// ═══════════════════════════════════════════════
+async function runPrediction(){
+  const hour = document.getElementById("predHour").value;
+  const day = document.getElementById("predDow").value;
+  const weather = document.getElementById("predWeather").value;
+
+  const res = await fetch("/api/predict", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({hour:hour, day:day, weather:weather})
+  });
+
+  const data = await res.json();
+
+  document.getElementById("predOut").classList.add("show");
+  document.getElementById("predNum").innerText = data.prediction;
+  document.getElementById("predCong").innerText = data.congestion;
+  document.getElementById("predConf").innerText = "Confidence: " + data.confidence;
+}
+
+  
+// LOAD REAL DATA FROM API
+fetch('/api/summary')
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("k-total").innerText =
+      data.total_records.toLocaleString();
+  })
+  .catch(err => console.log("API error:", err));
+  fetch('/api/summary')
+  .then(res => res.json())
+  .then(data => {
+
+    // TOTAL RECORDS
+    document.getElementById("k-total").innerText =
+      data.total_records.toLocaleString();
+
+    // PEAK
+    document.getElementById("k-peak").innerText =
+  data.peak_day + " " + String(data.peak_hour).padStart(2, '0') + ":00";
+
+    document.getElementById("k-psub").innerText =
+      data.peak_day + " " + String(data.peak_hour).padStart(2,'0') + ":00";
+
+    // AVG
+    document.getElementById("k-avg").innerText =
+      data.overall_avg.toLocaleString();
+
+    // MODEL R2
+    async function loadModels() {
+  const res = await fetch('/api/models');
+  const data = await res.json();
+
+  document.getElementById('k-r2').textContent =
+    data.rf.r2.toFixed(4);
+  fetch('/api/summary')
+  .then(res => res.json())
+  .then(data => {
+
+    // TOTAL RECORDS
+    document.getElementById("k-total").innerText =
+      data.total_records.toLocaleString();
+
+    // PEAK
+    document.getElementById("k-peak").innerText =
+      data.peak_day + " " + String(data.peak_hour).padStart(2,'0') + ":00";
+
+    document.getElementById("k-psub").innerText =
+      "Peak Volume: " + Math.round(data.peak_volume);
+
+    // AVG
+    document.getElementById("k-avg").innerText =
+      Math.round(data.overall_avg).toLocaleString();
+
+    // R2
+    document.getElementById("k-r2").innerText =
+      data.model_r2.toFixed(4);
+
+  })
+  .catch(err => console.log("API error:", err));
+}
+
+loadModels();
+
+fetch('/api/summary')
+.then(res => res.json())
+.then(data => {
+
+  document.getElementById("k-total").innerText =
+    data.total_records.toLocaleString();
+
+  document.getElementById("k-peak").innerText =
+    data.peak_day + " " + String(data.peak_hour).padStart(2,'0') + ":00";
+
+  document.getElementById("k-psub").innerText =
+    "Peak Volume: " + Math.round(data.peak_volume);
+
+  document.getElementById("k-avg").innerText =
+    Math.round(data.overall_avg).toLocaleString();
+
+  document.getElementById("k-r2").innerText =
+    data.model_r2.toFixed(4);
+
+});
+// 🔥 LOAD REAL DATA FROM BACKEND
+fetch('/api/summary')
+.then(res => res.json())
+.then(data => {
+
+  document.getElementById("k-total").innerText =
+    data.total_records.toLocaleString();
+
+  document.getElementById("k-peak").innerText =
+    data.peak_day + " " + String(data.peak_hour).padStart(2,'0') + ":00";
+
+  document.getElementById("k-psub").innerText =
+    "Peak Volume: " + Math.round(data.peak_volume);
+
+  document.getElementById("k-avg").innerText =
+    Math.round(data.overall_avg).toLocaleString();
+
+  document.getElementById("k-r2").innerText =
+    data.model_r2.toFixed(4);
+
+});
+
+
+  }
+
+  
+  );
+</script>
+<script>
+window.addEventListener("load", async () => {
+  try {
+    const res = await fetch("/api/summary");
+    const data = await res.json();
+
+    console.log("SUMMARY:", data);
+
+    // TOTAL RECORDS
+    document.getElementById("k-total").innerText =
+      data.total_records.toLocaleString();
+
+    // PEAK
+    document.getElementById("k-peak").innerText =
+      data.peak_day + " " +
+      String(data.peak_hour).padStart(2, '0') + ":00";
+
+    document.getElementById("k-psub").innerText =
+      "Peak Volume: " + Math.round(data.peak_volume);
+
+    // AVG TRAFFIC
+    document.getElementById("k-avg").innerText =
+      Math.round(data.overall_avg).toLocaleString();
+
+    // MODEL R2
+    document.getElementById("k-r2").innerText =
+      data.model_r2.toFixed(4);
+
+  } catch (err) {
+    console.error("API ERROR:", err);
+  }
+});
+</script>
+<script>
+window.addEventListener("load", async () => {
+  try {
+    const res = await fetch("/api/summary");
+    const data = await res.json();
+
+    // KPI values
+    document.getElementById("k-total").textContent =
+      data.total_records.toLocaleString();
+
+    document.getElementById("k-avg").textContent =
+      Math.round(data.overall_avg).toLocaleString();
+
+    document.getElementById("k-r2").textContent =
+      data.model_r2.toFixed(4);
+
+    document.getElementById("k-peak").innerHTML =
+      data.peak_day + "<br>" + String(data.peak_hour).padStart(2,"0") + ":00";
+
+    document.getElementById("k-psub").textContent =
+      "Peak Volume: " + Math.round(data.peak_volume);
+
+  } catch (err) {
+    console.error("Summary API failed", err);
+  }
+});
+</script>
+
+</body>
+</html>

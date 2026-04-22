@@ -1,0 +1,56 @@
+[
+  {
+    "weather_main": "Clear",
+    "avg_traffic": 2243.9,
+    "avg_speed": 47.1,
+    "occurrences": 31512
+  },
+  {
+    "weather_main": "Clouds",
+    "avg_traffic": 2173.2,
+    "avg_speed": 46.5,
+    "occurrences": 32219
+  },
+  {
+    "weather_main": "Mist",
+    "avg_traffic": 2091.1,
+    "avg_speed": 45.7,
+    "occurrences": 13398
+  },
+  {
+    "weather_main": "Drizzle",
+    "avg_traffic": 2046.1,
+    "avg_speed": 45.0,
+    "occurrences": 11134
+  },
+  {
+    "weather_main": "Haze",
+    "avg_traffic": 1991.1,
+    "avg_speed": 44.2,
+    "occurrences": 14215
+  },
+  {
+    "weather_main": "Rain",
+    "avg_traffic": 1868.9,
+    "avg_speed": 42.6,
+    "occurrences": 35675
+  },
+  {
+    "weather_main": "Thunderstorm",
+    "avg_traffic": 1561.6,
+    "avg_speed": 37.7,
+    "occurrences": 6162
+  },
+  {
+    "weather_main": "Snow",
+    "avg_traffic": 1438.6,
+    "avg_speed": 34.9,
+    "occurrences": 17981
+  },
+  {
+    "weather_main": "Fog",
+    "avg_traffic": 1328.0,
+    "avg_speed": 32.9,
+    "occurrences": 13024
+  }
+]

@@ -1,0 +1,1346 @@
+[
+  {
+    "day_of_week": 0,
+    "hour": 0,
+    "avg_traffic": 324.0,
+    "avg_occ": 6.0,
+    "day_name": "Monday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 1,
+    "avg_traffic": 331.0,
+    "avg_occ": 6.2,
+    "day_name": "Monday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 2,
+    "avg_traffic": 330.0,
+    "avg_occ": 6.1,
+    "day_name": "Monday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 3,
+    "avg_traffic": 333.0,
+    "avg_occ": 6.2,
+    "day_name": "Monday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 4,
+    "avg_traffic": 336.0,
+    "avg_occ": 6.2,
+    "day_name": "Monday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 5,
+    "avg_traffic": 1042.0,
+    "avg_occ": 19.3,
+    "day_name": "Monday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 6,
+    "avg_traffic": 3756.0,
+    "avg_occ": 69.7,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 7,
+    "avg_traffic": 3756.0,
+    "avg_occ": 69.7,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 8,
+    "avg_traffic": 3755.0,
+    "avg_occ": 69.6,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 9,
+    "avg_traffic": 3799.0,
+    "avg_occ": 70.1,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 10,
+    "avg_traffic": 2533.0,
+    "avg_occ": 47.0,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 11,
+    "avg_traffic": 2557.0,
+    "avg_occ": 47.2,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 12,
+    "avg_traffic": 2507.0,
+    "avg_occ": 46.4,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 13,
+    "avg_traffic": 2534.0,
+    "avg_occ": 46.9,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 14,
+    "avg_traffic": 2495.0,
+    "avg_occ": 46.4,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 15,
+    "avg_traffic": 4013.0,
+    "avg_occ": 74.4,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 16,
+    "avg_traffic": 4026.0,
+    "avg_occ": 74.6,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 17,
+    "avg_traffic": 3995.0,
+    "avg_occ": 73.9,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 18,
+    "avg_traffic": 3972.0,
+    "avg_occ": 73.7,
+    "day_name": "Monday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 19,
+    "avg_traffic": 1619.0,
+    "avg_occ": 30.1,
+    "day_name": "Monday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 20,
+    "avg_traffic": 1621.0,
+    "avg_occ": 30.0,
+    "day_name": "Monday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 21,
+    "avg_traffic": 1631.0,
+    "avg_occ": 30.2,
+    "day_name": "Monday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 22,
+    "avg_traffic": 1621.0,
+    "avg_occ": 30.0,
+    "day_name": "Monday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 0,
+    "hour": 23,
+    "avg_traffic": 333.0,
+    "avg_occ": 6.1,
+    "day_name": "Monday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 0,
+    "avg_traffic": 321.0,
+    "avg_occ": 5.9,
+    "day_name": "Tuesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 1,
+    "avg_traffic": 324.0,
+    "avg_occ": 6.0,
+    "day_name": "Tuesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 2,
+    "avg_traffic": 325.0,
+    "avg_occ": 6.0,
+    "day_name": "Tuesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 3,
+    "avg_traffic": 320.0,
+    "avg_occ": 5.9,
+    "day_name": "Tuesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 4,
+    "avg_traffic": 317.0,
+    "avg_occ": 5.9,
+    "day_name": "Tuesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 5,
+    "avg_traffic": 1057.0,
+    "avg_occ": 19.6,
+    "day_name": "Tuesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 6,
+    "avg_traffic": 3839.0,
+    "avg_occ": 70.8,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 7,
+    "avg_traffic": 3789.0,
+    "avg_occ": 70.2,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 8,
+    "avg_traffic": 3814.0,
+    "avg_occ": 70.7,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 9,
+    "avg_traffic": 3748.0,
+    "avg_occ": 69.6,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 10,
+    "avg_traffic": 2543.0,
+    "avg_occ": 47.1,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 11,
+    "avg_traffic": 2553.0,
+    "avg_occ": 47.2,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 12,
+    "avg_traffic": 2561.0,
+    "avg_occ": 47.3,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 13,
+    "avg_traffic": 2549.0,
+    "avg_occ": 47.1,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 14,
+    "avg_traffic": 2557.0,
+    "avg_occ": 47.2,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 15,
+    "avg_traffic": 4065.0,
+    "avg_occ": 75.1,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 16,
+    "avg_traffic": 4004.0,
+    "avg_occ": 74.0,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 17,
+    "avg_traffic": 4060.0,
+    "avg_occ": 75.3,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 18,
+    "avg_traffic": 4001.0,
+    "avg_occ": 74.0,
+    "day_name": "Tuesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 19,
+    "avg_traffic": 1624.0,
+    "avg_occ": 30.1,
+    "day_name": "Tuesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 20,
+    "avg_traffic": 1619.0,
+    "avg_occ": 29.9,
+    "day_name": "Tuesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 21,
+    "avg_traffic": 1629.0,
+    "avg_occ": 30.2,
+    "day_name": "Tuesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 22,
+    "avg_traffic": 1631.0,
+    "avg_occ": 30.2,
+    "day_name": "Tuesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 1,
+    "hour": 23,
+    "avg_traffic": 324.0,
+    "avg_occ": 6.0,
+    "day_name": "Tuesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 0,
+    "avg_traffic": 358.0,
+    "avg_occ": 6.7,
+    "day_name": "Wednesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 1,
+    "avg_traffic": 354.0,
+    "avg_occ": 6.6,
+    "day_name": "Wednesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 2,
+    "avg_traffic": 359.0,
+    "avg_occ": 6.6,
+    "day_name": "Wednesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 3,
+    "avg_traffic": 352.0,
+    "avg_occ": 6.5,
+    "day_name": "Wednesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 4,
+    "avg_traffic": 360.0,
+    "avg_occ": 6.6,
+    "day_name": "Wednesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 5,
+    "avg_traffic": 1061.0,
+    "avg_occ": 19.7,
+    "day_name": "Wednesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 6,
+    "avg_traffic": 3806.0,
+    "avg_occ": 70.3,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 7,
+    "avg_traffic": 3816.0,
+    "avg_occ": 70.7,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 8,
+    "avg_traffic": 3766.0,
+    "avg_occ": 69.8,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 9,
+    "avg_traffic": 3747.0,
+    "avg_occ": 69.2,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 10,
+    "avg_traffic": 2514.0,
+    "avg_occ": 46.7,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 11,
+    "avg_traffic": 2530.0,
+    "avg_occ": 46.9,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 12,
+    "avg_traffic": 2497.0,
+    "avg_occ": 46.3,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 13,
+    "avg_traffic": 2505.0,
+    "avg_occ": 46.4,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 14,
+    "avg_traffic": 2518.0,
+    "avg_occ": 46.6,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 15,
+    "avg_traffic": 4026.0,
+    "avg_occ": 74.5,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 16,
+    "avg_traffic": 3969.0,
+    "avg_occ": 73.6,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 17,
+    "avg_traffic": 3956.0,
+    "avg_occ": 73.3,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 18,
+    "avg_traffic": 4000.0,
+    "avg_occ": 74.2,
+    "day_name": "Wednesday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 19,
+    "avg_traffic": 1658.0,
+    "avg_occ": 30.7,
+    "day_name": "Wednesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 20,
+    "avg_traffic": 1613.0,
+    "avg_occ": 29.9,
+    "day_name": "Wednesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 21,
+    "avg_traffic": 1622.0,
+    "avg_occ": 30.0,
+    "day_name": "Wednesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 22,
+    "avg_traffic": 1626.0,
+    "avg_occ": 30.1,
+    "day_name": "Wednesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 2,
+    "hour": 23,
+    "avg_traffic": 356.0,
+    "avg_occ": 6.6,
+    "day_name": "Wednesday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 0,
+    "avg_traffic": 327.0,
+    "avg_occ": 6.1,
+    "day_name": "Thursday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 1,
+    "avg_traffic": 327.0,
+    "avg_occ": 6.1,
+    "day_name": "Thursday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 2,
+    "avg_traffic": 330.0,
+    "avg_occ": 6.1,
+    "day_name": "Thursday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 3,
+    "avg_traffic": 331.0,
+    "avg_occ": 6.1,
+    "day_name": "Thursday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 4,
+    "avg_traffic": 325.0,
+    "avg_occ": 6.0,
+    "day_name": "Thursday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 5,
+    "avg_traffic": 1039.0,
+    "avg_occ": 19.2,
+    "day_name": "Thursday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 6,
+    "avg_traffic": 3794.0,
+    "avg_occ": 70.4,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 7,
+    "avg_traffic": 3783.0,
+    "avg_occ": 70.3,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 8,
+    "avg_traffic": 3788.0,
+    "avg_occ": 70.3,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 9,
+    "avg_traffic": 3778.0,
+    "avg_occ": 70.1,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 10,
+    "avg_traffic": 2540.0,
+    "avg_occ": 47.0,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 11,
+    "avg_traffic": 2530.0,
+    "avg_occ": 46.9,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 12,
+    "avg_traffic": 2540.0,
+    "avg_occ": 47.0,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 13,
+    "avg_traffic": 2543.0,
+    "avg_occ": 47.0,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 14,
+    "avg_traffic": 2540.0,
+    "avg_occ": 47.0,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 15,
+    "avg_traffic": 4020.0,
+    "avg_occ": 74.3,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 16,
+    "avg_traffic": 4049.0,
+    "avg_occ": 75.0,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 17,
+    "avg_traffic": 4026.0,
+    "avg_occ": 74.6,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 18,
+    "avg_traffic": 4010.0,
+    "avg_occ": 74.3,
+    "day_name": "Thursday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 19,
+    "avg_traffic": 1639.0,
+    "avg_occ": 30.3,
+    "day_name": "Thursday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 20,
+    "avg_traffic": 1618.0,
+    "avg_occ": 29.8,
+    "day_name": "Thursday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 21,
+    "avg_traffic": 1628.0,
+    "avg_occ": 30.1,
+    "day_name": "Thursday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 22,
+    "avg_traffic": 1644.0,
+    "avg_occ": 30.4,
+    "day_name": "Thursday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 3,
+    "hour": 23,
+    "avg_traffic": 326.0,
+    "avg_occ": 6.1,
+    "day_name": "Thursday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 0,
+    "avg_traffic": 351.0,
+    "avg_occ": 6.5,
+    "day_name": "Friday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 1,
+    "avg_traffic": 360.0,
+    "avg_occ": 6.6,
+    "day_name": "Friday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 2,
+    "avg_traffic": 353.0,
+    "avg_occ": 6.6,
+    "day_name": "Friday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 3,
+    "avg_traffic": 356.0,
+    "avg_occ": 6.6,
+    "day_name": "Friday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 4,
+    "avg_traffic": 356.0,
+    "avg_occ": 6.6,
+    "day_name": "Friday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 5,
+    "avg_traffic": 1050.0,
+    "avg_occ": 19.5,
+    "day_name": "Friday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 6,
+    "avg_traffic": 3712.0,
+    "avg_occ": 68.8,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 7,
+    "avg_traffic": 3690.0,
+    "avg_occ": 68.4,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 8,
+    "avg_traffic": 3733.0,
+    "avg_occ": 69.1,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 9,
+    "avg_traffic": 3717.0,
+    "avg_occ": 68.6,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 10,
+    "avg_traffic": 2512.0,
+    "avg_occ": 46.5,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 11,
+    "avg_traffic": 2488.0,
+    "avg_occ": 46.1,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 12,
+    "avg_traffic": 2496.0,
+    "avg_occ": 46.3,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 13,
+    "avg_traffic": 2508.0,
+    "avg_occ": 46.5,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 14,
+    "avg_traffic": 2495.0,
+    "avg_occ": 46.1,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 15,
+    "avg_traffic": 3954.0,
+    "avg_occ": 73.1,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 16,
+    "avg_traffic": 3925.0,
+    "avg_occ": 72.7,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 17,
+    "avg_traffic": 3944.0,
+    "avg_occ": 73.2,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 18,
+    "avg_traffic": 3958.0,
+    "avg_occ": 73.2,
+    "day_name": "Friday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 19,
+    "avg_traffic": 1605.0,
+    "avg_occ": 29.8,
+    "day_name": "Friday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 20,
+    "avg_traffic": 1620.0,
+    "avg_occ": 30.0,
+    "day_name": "Friday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 21,
+    "avg_traffic": 1629.0,
+    "avg_occ": 30.1,
+    "day_name": "Friday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 22,
+    "avg_traffic": 1626.0,
+    "avg_occ": 30.1,
+    "day_name": "Friday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 4,
+    "hour": 23,
+    "avg_traffic": 358.0,
+    "avg_occ": 6.6,
+    "day_name": "Friday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 0,
+    "avg_traffic": 386.0,
+    "avg_occ": 7.1,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 1,
+    "avg_traffic": 385.0,
+    "avg_occ": 7.2,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 2,
+    "avg_traffic": 380.0,
+    "avg_occ": 7.1,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 3,
+    "avg_traffic": 386.0,
+    "avg_occ": 7.2,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 4,
+    "avg_traffic": 390.0,
+    "avg_occ": 7.2,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 5,
+    "avg_traffic": 378.0,
+    "avg_occ": 7.0,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 6,
+    "avg_traffic": 384.0,
+    "avg_occ": 7.1,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 7,
+    "avg_traffic": 381.0,
+    "avg_occ": 7.1,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 8,
+    "avg_traffic": 1399.0,
+    "avg_occ": 25.9,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 9,
+    "avg_traffic": 1413.0,
+    "avg_occ": 26.1,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 10,
+    "avg_traffic": 2065.0,
+    "avg_occ": 38.3,
+    "day_name": "Saturday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 11,
+    "avg_traffic": 2055.0,
+    "avg_occ": 38.3,
+    "day_name": "Saturday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 12,
+    "avg_traffic": 2041.0,
+    "avg_occ": 37.9,
+    "day_name": "Saturday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 13,
+    "avg_traffic": 2050.0,
+    "avg_occ": 38.0,
+    "day_name": "Saturday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 14,
+    "avg_traffic": 2061.0,
+    "avg_occ": 38.1,
+    "day_name": "Saturday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 15,
+    "avg_traffic": 2066.0,
+    "avg_occ": 38.2,
+    "day_name": "Saturday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 16,
+    "avg_traffic": 2057.0,
+    "avg_occ": 38.1,
+    "day_name": "Saturday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 17,
+    "avg_traffic": 2057.0,
+    "avg_occ": 38.2,
+    "day_name": "Saturday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 18,
+    "avg_traffic": 2044.0,
+    "avg_occ": 37.9,
+    "day_name": "Saturday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 19,
+    "avg_traffic": 1387.0,
+    "avg_occ": 25.7,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 20,
+    "avg_traffic": 1398.0,
+    "avg_occ": 25.9,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 21,
+    "avg_traffic": 1393.0,
+    "avg_occ": 25.7,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 22,
+    "avg_traffic": 383.0,
+    "avg_occ": 7.1,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 5,
+    "hour": 23,
+    "avg_traffic": 385.0,
+    "avg_occ": 7.1,
+    "day_name": "Saturday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 0,
+    "avg_traffic": 382.0,
+    "avg_occ": 7.1,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 1,
+    "avg_traffic": 379.0,
+    "avg_occ": 7.0,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 2,
+    "avg_traffic": 379.0,
+    "avg_occ": 7.0,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 3,
+    "avg_traffic": 375.0,
+    "avg_occ": 6.9,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 4,
+    "avg_traffic": 372.0,
+    "avg_occ": 6.9,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 5,
+    "avg_traffic": 387.0,
+    "avg_occ": 7.2,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 6,
+    "avg_traffic": 385.0,
+    "avg_occ": 7.1,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 7,
+    "avg_traffic": 378.0,
+    "avg_occ": 7.0,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 8,
+    "avg_traffic": 1390.0,
+    "avg_occ": 25.8,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 9,
+    "avg_traffic": 1395.0,
+    "avg_occ": 25.8,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 10,
+    "avg_traffic": 2064.0,
+    "avg_occ": 38.2,
+    "day_name": "Sunday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 11,
+    "avg_traffic": 2057.0,
+    "avg_occ": 38.1,
+    "day_name": "Sunday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 12,
+    "avg_traffic": 2064.0,
+    "avg_occ": 38.2,
+    "day_name": "Sunday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 13,
+    "avg_traffic": 2070.0,
+    "avg_occ": 38.3,
+    "day_name": "Sunday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 14,
+    "avg_traffic": 2069.0,
+    "avg_occ": 38.3,
+    "day_name": "Sunday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 15,
+    "avg_traffic": 2072.0,
+    "avg_occ": 38.3,
+    "day_name": "Sunday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 16,
+    "avg_traffic": 2068.0,
+    "avg_occ": 38.2,
+    "day_name": "Sunday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 17,
+    "avg_traffic": 2088.0,
+    "avg_occ": 38.6,
+    "day_name": "Sunday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 18,
+    "avg_traffic": 2073.0,
+    "avg_occ": 38.4,
+    "day_name": "Sunday",
+    "congestion": "Medium"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 19,
+    "avg_traffic": 1396.0,
+    "avg_occ": 25.7,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 20,
+    "avg_traffic": 1406.0,
+    "avg_occ": 25.9,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 21,
+    "avg_traffic": 1424.0,
+    "avg_occ": 26.4,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 22,
+    "avg_traffic": 369.0,
+    "avg_occ": 6.9,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  },
+  {
+    "day_of_week": 6,
+    "hour": 23,
+    "avg_traffic": 381.0,
+    "avg_occ": 7.0,
+    "day_name": "Sunday",
+    "congestion": "Low"
+  }
+]

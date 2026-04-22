@@ -1,0 +1,194 @@
+[
+  {
+    "hour": 0,
+    "avg_traffic": 349.9,
+    "avg_speed": 51.1,
+    "avg_occ": 6.5,
+    "max_traffic": 4594,
+    "records": 7305
+  },
+  {
+    "hour": 1,
+    "avg_traffic": 351.3,
+    "avg_speed": 51.3,
+    "avg_occ": 6.5,
+    "max_traffic": 4713,
+    "records": 7305
+  },
+  {
+    "hour": 2,
+    "avg_traffic": 350.8,
+    "avg_speed": 51.1,
+    "avg_occ": 6.5,
+    "max_traffic": 4687,
+    "records": 7305
+  },
+  {
+    "hour": 3,
+    "avg_traffic": 350.4,
+    "avg_speed": 51.0,
+    "avg_occ": 6.5,
+    "max_traffic": 5123,
+    "records": 7305
+  },
+  {
+    "hour": 4,
+    "avg_traffic": 351.1,
+    "avg_speed": 51.2,
+    "avg_occ": 6.5,
+    "max_traffic": 4983,
+    "records": 7305
+  },
+  {
+    "hour": 5,
+    "avg_traffic": 859.0,
+    "avg_speed": 50.0,
+    "avg_occ": 15.9,
+    "max_traffic": 5349,
+    "records": 7305
+  },
+  {
+    "hour": 6,
+    "avg_traffic": 2809.6,
+    "avg_speed": 35.7,
+    "avg_occ": 52.0,
+    "max_traffic": 7196,
+    "records": 7305
+  },
+  {
+    "hour": 7,
+    "avg_traffic": 2797.7,
+    "avg_speed": 35.7,
+    "avg_occ": 51.9,
+    "max_traffic": 7146,
+    "records": 7305
+  },
+  {
+    "hour": 8,
+    "avg_traffic": 3091.2,
+    "avg_speed": 34.9,
+    "avg_occ": 57.3,
+    "max_traffic": 7200,
+    "records": 7305
+  },
+  {
+    "hour": 9,
+    "avg_traffic": 3084.4,
+    "avg_speed": 35.0,
+    "avg_occ": 57.1,
+    "max_traffic": 7200,
+    "records": 7305
+  },
+  {
+    "hour": 10,
+    "avg_traffic": 2395.5,
+    "avg_speed": 42.5,
+    "avg_occ": 44.4,
+    "max_traffic": 4979,
+    "records": 7305
+  },
+  {
+    "hour": 11,
+    "avg_traffic": 2395.6,
+    "avg_speed": 42.5,
+    "avg_occ": 44.4,
+    "max_traffic": 5310,
+    "records": 7305
+  },
+  {
+    "hour": 12,
+    "avg_traffic": 2386.4,
+    "avg_speed": 42.6,
+    "avg_occ": 44.2,
+    "max_traffic": 4881,
+    "records": 7305
+  },
+  {
+    "hour": 13,
+    "avg_traffic": 2393.9,
+    "avg_speed": 42.4,
+    "avg_occ": 44.3,
+    "max_traffic": 5062,
+    "records": 7305
+  },
+  {
+    "hour": 14,
+    "avg_traffic": 2390.5,
+    "avg_speed": 42.6,
+    "avg_occ": 44.2,
+    "max_traffic": 5524,
+    "records": 7305
+  },
+  {
+    "hour": 15,
+    "avg_traffic": 3458.7,
+    "avg_speed": 32.0,
+    "avg_occ": 64.0,
+    "max_traffic": 7200,
+    "records": 7305
+  },
+  {
+    "hour": 16,
+    "avg_traffic": 3441.8,
+    "avg_speed": 32.1,
+    "avg_occ": 63.7,
+    "max_traffic": 7200,
+    "records": 7305
+  },
+  {
+    "hour": 17,
+    "avg_traffic": 3445.9,
+    "avg_speed": 32.1,
+    "avg_occ": 63.8,
+    "max_traffic": 7200,
+    "records": 7305
+  },
+  {
+    "hour": 18,
+    "avg_traffic": 3436.2,
+    "avg_speed": 32.2,
+    "avg_occ": 63.7,
+    "max_traffic": 7200,
+    "records": 7305
+  },
+  {
+    "hour": 19,
+    "avg_traffic": 1561.1,
+    "avg_speed": 47.7,
+    "avg_occ": 28.9,
+    "max_traffic": 5106,
+    "records": 7305
+  },
+  {
+    "hour": 20,
+    "avg_traffic": 1556.4,
+    "avg_speed": 47.6,
+    "avg_occ": 28.8,
+    "max_traffic": 5276,
+    "records": 7305
+  },
+  {
+    "hour": 21,
+    "avg_traffic": 1565.1,
+    "avg_speed": 47.6,
+    "avg_occ": 29.0,
+    "max_traffic": 4900,
+    "records": 7305
+  },
+  {
+    "hour": 22,
+    "avg_traffic": 1271.0,
+    "avg_speed": 48.4,
+    "avg_occ": 23.5,
+    "max_traffic": 5277,
+    "records": 7305
+  },
+  {
+    "hour": 23,
+    "avg_traffic": 352.0,
+    "avg_speed": 51.2,
+    "avg_occ": 6.5,
+    "max_traffic": 5514,
+    "records": 7305
+  }
+]
